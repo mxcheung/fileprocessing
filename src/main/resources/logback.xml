@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-	<property name="PROJECT" value="lonsec-dp-company-service" />
+	<property name="PROJECT" value="futureclearer-service" />
 	
     <property name="LOG_DIR" value="${catalina.base}/logs" />
 

@@ -328,7 +328,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${plugin.springframework.boot}</version>
 				<configuration>
-					<mainClass>au.com.lonsec.service.company.App</mainClass>
+					<mainClass>au.com.maxcheung.service.futureclearer.App</mainClass>
 				</configuration>
 				<executions>
 					<execution>

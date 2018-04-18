@@ -1,4 +1,4 @@
-package au.com.lonsec.service.company;
+package au.com.maxcheung.service.futureclearer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -20,6 +20,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.core.env.Environment;
+
+import au.com.maxcheung.service.futureclearer.App;
 
 /**
  * Unit tests for {@link App}.

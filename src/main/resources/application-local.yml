@@ -15,18 +15,6 @@ security:
 management:
   security:
     enabled: false
-lonsec:
-  oauth2:
-    token:
-      jdbc:
-        url: jdbc:h2:tcp://localhost/~/test
-        driver: org.h2.Driver
-        username: sa
-        password: null
-      remote:
-        endpoint: http://localhost:9999/lsso/oauth/check_token
-        client: lonsecApp
-        secret: secret
         
 eureka:
   client:
