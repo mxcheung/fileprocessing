@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "columnName", "start", "end" })
-
 public class FlatFileSpecRow {
 
     private String columnName;

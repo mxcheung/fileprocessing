@@ -4,11 +4,14 @@ import static com.google.common.base.Joiner.on;
 import static com.google.common.base.MoreObjects.firstNonNull;
 import static java.lang.String.format;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-
 import com.google.common.collect.ImmutableMap;
+
 
 
 @SpringBootApplication
@@ -53,7 +56,17 @@ public class App extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         final App app = new App();
-        app.run(app.configure(new SpringApplicationBuilder(App.class)).build());
+        Map<String, Object> props = makeMap(args);
+        app.run(app.configure(new SpringApplicationBuilder(App.class).properties(props)).build());
     }
 
+    public static Map<String, Object> makeMap(String[] args) {
+        Map<String, Object> kvs =
+                Arrays.asList(args)
+                    .stream()
+                    .map(elem -> elem.split("="))
+                    .filter(elem -> elem.length == 2)
+                    .collect(Collectors.toMap(e -> e[0], e -> e[1]));
+        return kvs;
+    }
 }

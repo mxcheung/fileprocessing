@@ -25,10 +25,11 @@ public class FileSpecCSVReaderTest {
 	}
 
 	@Test
-	public void shouldReadRequestFromFile() throws JsonProcessingException, FileNotFoundException, IOException {
+	public void shouldReadFileSpecFromFile() throws JsonProcessingException, FileNotFoundException, IOException {
 		String rfiMasterFilePath = FILESPEC_FILEPATH + "future-filespec.csv";
 		List<FlatFileSpecRow> rows = fileSpecCSVReader.readCsv(rfiMasterFilePath);
 		assertEquals(34, rows.size());
+		assertEquals(3, rows.get(0).getFieldSize());
 	}
 
 }
