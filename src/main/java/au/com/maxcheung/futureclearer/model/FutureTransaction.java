@@ -357,9 +357,17 @@ public class FutureTransaction {
                 .collect(Collectors.joining("_"));
     }
 
-    public String getProductnfo() {
+    public String getProductInfo() {
         return Arrays.asList(productGroupCode, exchangeCode, symbol, expirationDate).stream()
                 .collect(Collectors.joining("_"));
+    }
+
+    public String getCompositeKey() {
+        return Arrays.asList(getClientInfo(), getProductInfo()).stream().collect(Collectors.joining("_"));
+    }
+
+    public BigDecimal getTotalAmount() {
+        return new BigDecimal("1");
     }
 
 }

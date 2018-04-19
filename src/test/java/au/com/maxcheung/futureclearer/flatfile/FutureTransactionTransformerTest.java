@@ -106,7 +106,7 @@ public class FutureTransactionTransformerTest {
         assertEquals(SYMBOL, futureTransaction.getSymbol());
         assertEquals(EXPIRATION_DATE, futureTransaction.getExpirationDate());
         String productInfo = Arrays.asList(PRODUCT_GROUP_CODE, EXCHANGE_CODE, SYMBOL, EXPIRATION_DATE).stream().collect(Collectors.joining("_"));
-        assertEquals( productInfo , futureTransaction.getProductnfo());
+        assertEquals( productInfo , futureTransaction.getProductInfo());
     }
 
     @Test

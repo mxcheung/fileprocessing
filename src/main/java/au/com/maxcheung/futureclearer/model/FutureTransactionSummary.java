@@ -1,5 +1,7 @@
 package au.com.maxcheung.futureclearer.model;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -11,11 +13,11 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "clientInfo", "productInfo", "totalTransactionAmount" })
-public class SummaryReport {
+public class FutureTransactionSummary {
 
     private String clientInfo;
     private String productInfo;
-    private String totalTransactionAmount;
+    private BigDecimal totalTransactionAmount;
 
     public String getClientInfo() {
         return clientInfo;
@@ -33,12 +35,13 @@ public class SummaryReport {
         this.productInfo = productInfo;
     }
 
-    public String getTotalTransactionAmount() {
+    public BigDecimal getTotalTransactionAmount() {
         return totalTransactionAmount;
     }
 
-    public void setTotalTransactionAmount(String totalTransactionAmount) {
+    public void setTotalTransactionAmount(BigDecimal totalTransactionAmount) {
         this.totalTransactionAmount = totalTransactionAmount;
     }
+
 
 }
