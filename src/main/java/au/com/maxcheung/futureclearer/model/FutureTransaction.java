@@ -367,7 +367,8 @@ public class FutureTransaction {
     }
 
     public BigDecimal getTotalAmount() {
-        return new BigDecimal("1");
+        long total = quantityLong - quantityShort;
+        return new BigDecimal(total);
     }
 
 }

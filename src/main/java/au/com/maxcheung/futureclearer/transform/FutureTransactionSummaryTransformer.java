@@ -28,6 +28,7 @@ public class FutureTransactionSummaryTransformer {
             FutureTransactionSummary summary = new FutureTransactionSummary();
             summary.setClientInfo(clientInfo);
             summary.setProductInfo(productInfo);
+            summary.setTransactionInfo(totalTransactionAmount.toString());
             summary.setTotalTransactionAmount(totalTransactionAmount);
             summaryList.add(summary);
         });
