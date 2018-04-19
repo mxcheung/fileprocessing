@@ -1,4 +1,4 @@
-package au.com.maxcheung.service.futureclearer;
+package au.com.maxcheung.futureclearer;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,8 +21,6 @@ import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.core.env.Environment;
 
-import au.com.maxcheung.service.futureclearer.App;
-
 /**
  * Unit tests for {@link App}.
  * 
@@ -31,7 +29,7 @@ import au.com.maxcheung.service.futureclearer.App;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class AppTest {
-    
+
     /**
      * Test object.
      */
@@ -75,9 +73,9 @@ public class AppTest {
     @Test
     public void shouldConfigureBanner() {
         Environment envMock = mock(Environment.class);
-        String [] profiles = {"testProfile"};
+        String[] profiles = { "testProfile" };
         when(envMock.getActiveProfiles()).thenReturn(profiles);
-        
+
         ArgumentCaptor<Banner> captor = forClass(Banner.class);
         app.configure(builder);
         verify(builder).banner(captor.capture());
@@ -90,6 +88,5 @@ public class AppTest {
         assertTrue(output.toString().contains("Future Clearing"));
         assertTrue(output.toString().contains("testProfile"));
     }
-
 
 }

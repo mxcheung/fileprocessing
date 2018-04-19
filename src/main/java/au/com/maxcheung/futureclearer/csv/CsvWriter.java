@@ -1,4 +1,4 @@
-package au.com.maxcheung.service.futureclearer.csv;
+package au.com.maxcheung.futureclearer.csv;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

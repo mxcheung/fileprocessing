@@ -1,8 +1,8 @@
-package au.com.maxcheung.service.futureclearer;
+package au.com.maxcheung.futureclearer;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
+import org.junit.Test;
 
 public class AppContextTest {
 
@@ -10,8 +10,8 @@ public class AppContextTest {
 
     @Test
     public void shouldCreatePropertiesMap() {
-        assertEquals(1,App.makeMap(new String[] {SERVER_PORT_ARG}).size());
-        assertEquals(0,App.makeMap(new String[] {"some random argument"}).size());
+        assertEquals(1, App.makeMap(new String[] { SERVER_PORT_ARG }).size());
+        assertEquals(0, App.makeMap(new String[] { "some random argument" }).size());
     }
 
     @Test

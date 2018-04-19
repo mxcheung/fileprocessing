@@ -1,4 +1,4 @@
-package au.com.maxcheung.service.futureclearer;
+package au.com.maxcheung.futureclearer;
 
 import static com.google.common.base.Joiner.on;
 import static com.google.common.base.MoreObjects.firstNonNull;

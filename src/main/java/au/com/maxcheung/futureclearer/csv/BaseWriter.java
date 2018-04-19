@@ -1,4 +1,4 @@
-package au.com.maxcheung.service.futureclearer.csv;
+package au.com.maxcheung.futureclearer.csv;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 
-public abstract class BaseWriter {
+abstract class BaseWriter {
 
     private static final int BUFFER_SIZE = 1024;
 

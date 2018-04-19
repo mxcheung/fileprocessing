@@ -1,4 +1,4 @@
-package au.com.maxcheung.service.futureclearer.csv;
+package au.com.maxcheung.futureclearer.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "columnName", "start", "end" })
-public class FlatFileSpecRow {
+public class FlatFileSpec {
 
     private String columnName;
     private int start;

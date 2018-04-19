@@ -1,4 +1,4 @@
-package au.com.maxcheung.service.futureclearer.csv;
+package au.com.maxcheung.futureclearer.model;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "recordCode", "clientType", "clientNumber" })
-public class Ticket {
+public class FutureTransaction {
 
     @Pattern(regexp = "[3][1][5]")
     private String recordCode;
@@ -40,12 +40,12 @@ public class Ticket {
     private String quantityLongSign;
 
     @Digits(integer = 10, fraction = 0)
-    private String quantityLong;
+    private Long quantityLong;
 
     private String quantityShortSign;
 
     @Digits(integer = 10, fraction = 0)
-    private String quantityShort;
+    private Long quantityShort;
 
     @Digits(integer = 12, fraction = 2)
     private String exchangeBrokerFee;
@@ -67,7 +67,7 @@ public class Ticket {
 
     private String ticketNumber;
 
-@Digits(integer = 6, fraction = 0)
+    @Digits(integer = 6, fraction = 0)
     private String externalNumber;
 
     @Digits(integer = 15, fraction = 7)
@@ -188,11 +188,11 @@ public class Ticket {
         this.quantityLongSign = quantityLongSign;
     }
 
-    public String getQuantityLong() {
+    public Long getQuantityLong() {
         return quantityLong;
     }
 
-    public void setQuantityLong(String quantityLong) {
+    public void setQuantityLong(Long quantityLong) {
         this.quantityLong = quantityLong;
     }
 
@@ -204,11 +204,11 @@ public class Ticket {
         this.quantityShortSign = quantityShortSign;
     }
 
-    public String getQuantityShort() {
+    public Long getQuantityShort() {
         return quantityShort;
     }
 
-    public void setQuantityShort(String quantityShort) {
+    public void setQuantityShort(Long quantityShort) {
         this.quantityShort = quantityShort;
     }
 
@@ -316,14 +316,6 @@ public class Ticket {
         this.externalNumber = externalNumber;
     }
 
-    public String getTransactionPrice() {
-        return transactionPrice;
-    }
-
-    public void setTransactionPrice(String transactionPrice) {
-        this.transactionPrice = transactionPrice;
-    }
-
     public String getTraderInitials() {
         return traderInitials;
     }
@@ -346,6 +338,14 @@ public class Ticket {
 
     public void setOpenCloseCode(String openCloseCode) {
         this.openCloseCode = openCloseCode;
+    }
+
+    public String getTransactionPrice() {
+        return transactionPrice;
+    }
+
+    public void setTransactionPrice(String transactionPrice) {
+        this.transactionPrice = transactionPrice;
     }
 
 }
