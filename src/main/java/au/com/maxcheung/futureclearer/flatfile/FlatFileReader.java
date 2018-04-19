@@ -13,6 +13,7 @@ import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.batch.item.file.FlatFileItemReader;
+import org.springframework.batch.item.file.LineMapper;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
@@ -21,7 +22,7 @@ import org.springframework.core.io.FileSystemResource;
 
 import au.com.maxcheung.futureclearer.csv.CsvReader;
 import au.com.maxcheung.futureclearer.model.FlatFileSpec;
-import au.com.maxcheung.futureclearer.model.FutureTransaction;
+import au.com.maxcheung.futureclearer.model.FutureTransactionDTO;
 
 /**
  * FlatFileReader to load fixed length file.
@@ -34,8 +35,8 @@ public class FlatFileReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(FlatFileReader.class);
 
     private CsvReader csvReader;
-    private DefaultLineMapper<FutureTransaction> lineMapper;
-    private FlatFileItemReader<FutureTransaction> r;
+    private DefaultLineMapper<FutureTransactionDTO> lineMapper;
+    private FlatFileItemReader<FutureTransactionDTO> r;
 
     public FlatFileReader(CsvReader csvReader) {
 
@@ -49,21 +50,21 @@ public class FlatFileReader {
 
     public <T> List<T> read(String filespec, String filename)
             throws UnexpectedInputException, ParseException, Exception {
-        lineMapper.setLineTokenizer(getTokenizer(filespec));
+        getLineMapper(filespec);
         r.setResource(new FileSystemResource(getFile(filename)));
         r.open(new ExecutionContext());
         return readData();
     }
 
-    private DefaultLineMapper<FutureTransaction> getLineMapper() {
-        lineMapper = new DefaultLineMapper<FutureTransaction>();
+    private DefaultLineMapper<FutureTransactionDTO> getLineMapper() {
+        lineMapper = new DefaultLineMapper<FutureTransactionDTO>();
         lineMapper.setFieldSetMapper(getFieldSetMapper());
         return lineMapper;
     }
 
-    private BeanWrapperFieldSetMapper<FutureTransaction> getFieldSetMapper() {
-        BeanWrapperFieldSetMapper<FutureTransaction> wrapper = new BeanWrapperFieldSetMapper<FutureTransaction>();
-        wrapper.setTargetType(FutureTransaction.class);
+    private BeanWrapperFieldSetMapper<FutureTransactionDTO> getFieldSetMapper() {
+        BeanWrapperFieldSetMapper<FutureTransactionDTO> wrapper = new BeanWrapperFieldSetMapper<FutureTransactionDTO>();
+        wrapper.setTargetType(FutureTransactionDTO.class);
         return wrapper;
     }
 
@@ -84,7 +85,12 @@ public class FlatFileReader {
         return new File(fileName);
     }
 
-    private FixedLengthTokenizer getTokenizer(String filePath) throws FileNotFoundException, IOException {
+    public LineMapper<FutureTransactionDTO> getLineMapper(String filespec) throws FileNotFoundException, IOException {
+        lineMapper.setLineTokenizer(getTokenizer(filespec));
+        return lineMapper;
+    }
+
+    public FixedLengthTokenizer getTokenizer(String filePath) throws FileNotFoundException, IOException {
         List<FlatFileSpec> rows = csvReader.readCsv(filePath);
         FixedLengthTokenizer tokenizer = new FixedLengthTokenizer();
         List<String> columnNames = rows.stream().map(e -> e.getColumnName()).collect(Collectors.toList());
@@ -94,4 +100,9 @@ public class FlatFileReader {
         tokenizer.setColumns(rangeList.toArray(new Range[0]));
         return tokenizer;
     }
+
+    public FutureTransactionDTO readLine(String line) throws Exception {
+        return lineMapper.mapLine(line, 0);
+    }
+
 }

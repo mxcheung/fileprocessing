@@ -1,9 +1,5 @@
 package au.com.maxcheung.futureclearer.model;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -13,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({ "recordCode", "clientType", "clientNumber" })
-public class FutureTransaction {
+public class FutureTransactionDTO {
 
     @Pattern(regexp = "[3][1][5]")
     private String recordCode;
@@ -52,14 +48,14 @@ public class FutureTransaction {
     private Long quantityShort;
 
     @Digits(integer = 12, fraction = 2)
-    private BigDecimal exchangeBrokerFee;
+    private String exchangeBrokerFee;
 
     private String exchangeBrokerFeeDC;
     private String exchangeBrokerFeeCurCode;
-    private BigDecimal clearingFee;
+    private String clearingFee;
     private String clearingFeeDC;
     private String clearingFeeCurCode;
-    private BigDecimal commission;
+    private String commission;
     private String commissionDC;
     private String commissionCurCode;
 
@@ -75,7 +71,7 @@ public class FutureTransaction {
     private String externalNumber;
 
     @Digits(integer = 15, fraction = 7)
-    private BigDecimal transactionPrice;
+    private String transactionPrice;
     private String traderInitials;
     private String oppositeTraderId;
     private String openCloseCode;
@@ -216,11 +212,11 @@ public class FutureTransaction {
         this.quantityShort = quantityShort;
     }
 
-    public BigDecimal getExchangeBrokerFee() {
+    public String getExchangeBrokerFee() {
         return exchangeBrokerFee;
     }
 
-    public void setExchangeBrokerFee(BigDecimal exchangeBrokerFee) {
+    public void setExchangeBrokerFee(String exchangeBrokerFee) {
         this.exchangeBrokerFee = exchangeBrokerFee;
     }
 
@@ -240,11 +236,11 @@ public class FutureTransaction {
         this.exchangeBrokerFeeCurCode = exchangeBrokerFeeCurCode;
     }
 
-    public BigDecimal getClearingFee() {
+    public String getClearingFee() {
         return clearingFee;
     }
 
-    public void setClearingFee(BigDecimal clearingFee) {
+    public void setClearingFee(String clearingFee) {
         this.clearingFee = clearingFee;
     }
 
@@ -264,11 +260,11 @@ public class FutureTransaction {
         this.clearingFeeCurCode = clearingFeeCurCode;
     }
 
-    public BigDecimal getCommission() {
+    public String getCommission() {
         return commission;
     }
 
-    public void setCommission(BigDecimal commission) {
+    public void setCommission(String commission) {
         this.commission = commission;
     }
 
@@ -320,14 +316,6 @@ public class FutureTransaction {
         this.externalNumber = externalNumber;
     }
 
-    public BigDecimal getTransactionPrice() {
-        return transactionPrice;
-    }
-
-    public void setTransactionPrice(BigDecimal transactionPrice) {
-        this.transactionPrice = transactionPrice;
-    }
-
     public String getTraderInitials() {
         return traderInitials;
     }
@@ -352,14 +340,12 @@ public class FutureTransaction {
         this.openCloseCode = openCloseCode;
     }
 
-    public String getClientInfo() {
-        return Arrays.asList(clientType, clientNumber, accountNumber, subAccountNumber).stream()
-                .collect(Collectors.joining("_"));
+    public String getTransactionPrice() {
+        return transactionPrice;
     }
 
-    public String getProductnfo() {
-        return Arrays.asList(productGroupCode, exchangeCode, symbol, expirationDate).stream()
-                .collect(Collectors.joining("_"));
+    public void setTransactionPrice(String transactionPrice) {
+        this.transactionPrice = transactionPrice;
     }
 
 }
