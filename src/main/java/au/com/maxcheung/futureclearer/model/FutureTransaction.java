@@ -18,9 +18,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FutureTransaction {
 
     @Pattern(regexp = "[3][1][5]")
-
     private String recordCode;
-
 
     private String clientType;
 

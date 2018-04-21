@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -27,6 +28,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.batch.item.file.transform.FixedLengthTokenizer;
 import org.springframework.batch.item.file.transform.Range;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
 import au.com.maxcheung.futureclearer.App;
@@ -64,8 +66,9 @@ public class FileTokenizerTest {
         
      //   FlatFileReader flatFileReader = new FlatFileReader(fileSpecCSVReader);
         FlatFileReaderImpl flatFileReader = new FlatFileReaderImpl();
-        
-        FixedLengthTokenizer tokenizer = flatFileReader.getTokenizer(FILESPEC_FILEPATH + "future-filespec.csv");
+        InputStream cpfileSpec = new ClassPathResource("future-filespec.csv").getInputStream();
+//        FixedLengthTokenizer tokenizer = flatFileReader.getTokenizer(FILESPEC_FILEPATH + "future-filespec.csv");
+        FixedLengthTokenizer tokenizer = flatFileReader.getTokenizer(cpfileSpec);
 
         String line = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
         FieldSet fields = tokenizer.tokenize(line);

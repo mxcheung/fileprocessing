@@ -2,6 +2,7 @@ package au.com.maxcheung.futureclearer.flatfile;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
@@ -9,11 +10,11 @@ import org.junit.Test;
 
 import au.com.maxcheung.futureclearer.App;
 import au.com.maxcheung.futureclearer.csv.CsvWriter;
-import au.com.maxcheung.futureclearer.future.FileSpecException;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
 import au.com.maxcheung.futureclearer.validate.FutureValidator;
+import au.com.maxcheung.futureclearer.validate.FutureValidatorImpl;
 
 /**
  * Unit tests for {@link App}.
@@ -33,31 +34,25 @@ public class FlatFileReaderImplTest {
     private FutureValidator futureValidator;
 
     @Before
-    public void setup() {
+    public void setup() throws IOException {
 //        reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         reader = new FlatFileReaderImpl();
         writer = new CsvWriter(FutureTransactionSummary.class);
         futureTransactionSummaryTransformer = new FutureTransformer();
-        futureValidator = new FutureValidator();
+        futureValidator = new FutureValidatorImpl();
     }
 
     @Test
     public void shouldReadFixedLengthFile() throws Exception {
         String specFile = FILESPEC_FILEPATH + FUTURE_FILESPEC_CSV;
         String dataFile = FILESPEC_FILEPATH + DATAFILE_TXT;
-        List<FutureTransaction> transactions = reader.read(specFile, dataFile);
+        List<FutureTransaction> transactions = reader.read(dataFile);
         assertEquals(717, transactions.size());
         futureValidator.validate(transactions);
         List<FutureTransactionSummary> summary = futureTransactionSummaryTransformer.transform(transactions);
         assertEquals(5, summary.size());
         String rfiMasterFilePath = FILESPEC_FILEPATH + "out.csv";
         writer.write(summary, rfiMasterFilePath);
-    }
-
-    @Test(expected = FileSpecException.class)
-    public void shouldThrowExceptionOnInvalidFile() throws Exception {
-        reader.getLineMapper("nonExistantSpec");
-
     }
 
 }

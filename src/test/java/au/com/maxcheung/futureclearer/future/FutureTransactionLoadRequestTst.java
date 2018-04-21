@@ -8,13 +8,5 @@ public class FutureTransactionLoadRequestTst {
 
     protected static final String DATAFILE_NAME = "datafileName";
 
-    protected FutureTransactionLoadRequest loadRequest;
 
-    protected FutureTransactionLoadRequest getRequest() {
-        FutureTransactionLoadRequest lookupValue = new FutureTransactionLoadRequest();
-        lookupValue.setDatafileName(DATAFILE_NAME);
-        lookupValue.setSpecfileName(SPECFILE_NAME);
-        lookupValue.setReportfileName(REPORTFILE_NAME);
-        return lookupValue;
-    }
 }

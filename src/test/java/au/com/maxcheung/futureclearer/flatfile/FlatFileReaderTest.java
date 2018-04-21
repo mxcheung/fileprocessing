@@ -2,6 +2,7 @@ package au.com.maxcheung.futureclearer.flatfile;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
@@ -25,7 +26,7 @@ public class FlatFileReaderTest {
     private FlatFileReader reader;
 
     @Before
-    public void setup() {
+    public void setup() throws IOException {
         // reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         reader = new FlatFileReaderImpl();
 
@@ -35,7 +36,7 @@ public class FlatFileReaderTest {
     public void shouldReadFixedLengthFile() throws Exception {
         String specFile = FILESPEC_FILEPATH + FUTURE_FILESPEC_CSV;
         String dataFile = FILESPEC_FILEPATH + DATAFILE_TXT;
-        List<FutureTransaction> transactions = reader.read(specFile, dataFile);
+        List<FutureTransaction> transactions = reader.read(dataFile);
         assertEquals(717, transactions.size());
     }
 

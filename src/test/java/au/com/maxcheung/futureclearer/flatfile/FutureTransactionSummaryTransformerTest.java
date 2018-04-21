@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.batch.item.file.LineMapper;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
@@ -61,7 +61,7 @@ public class FutureTransactionSummaryTransformerTest {
 
     private static final String RECORD_CODE = "315";
     private FlatFileReaderImpl flatFileReader;
-    private LineMapper<FutureTransaction> lineMapper;
+    private DefaultLineMapper<FutureTransaction> lineMapper;
     private FutureTransaction futureTransactionDTO;
     private FutureTransformer futureTransactionSummaryTransformer;
 
@@ -70,7 +70,7 @@ public class FutureTransactionSummaryTransformerTest {
         futureTransactionSummaryTransformer = new FutureTransformer();
         // flatFileReader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         flatFileReader = new FlatFileReaderImpl();
-        lineMapper = flatFileReader.getLineMapper(FILESPEC_FILEPATH + "future-filespec.csv");
+        lineMapper = flatFileReader.getLineMapper();
         futureTransactionDTO = lineMapper.mapLine(TRANSACTION_ROW1, 0);
     }
 

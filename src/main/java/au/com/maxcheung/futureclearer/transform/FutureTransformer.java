@@ -8,10 +8,12 @@ import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
+@Service
 public class FutureTransformer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FutureTransformer.class);

@@ -1,10 +1,3 @@
-# Spring Configuration, ensure hibernate does not auto-create DB's prefer flyway to do it.
-spring:
-  jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: none
-
 logging:
   level:
     com.netflix: INFO

@@ -3,11 +3,11 @@ package au.com.maxcheung.futureclearer.future;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import au.com.maxcheung.futureclearer.csv.CsvWriter;
 import au.com.maxcheung.futureclearer.flatfile.FlatFileReader;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
@@ -23,33 +23,40 @@ import au.com.maxcheung.futureclearer.validate.FutureValidator;
  */
 
 @Service
-public class LookupService {
+public class FutureService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(FutureService.class);
 
     private final FlatFileReader flatFileReader;
-    private FutureTransformer futureTransactionSummaryTransformer;
-    private FutureValidator futureValidator;
-    private CsvWriter writer;
+    private final FutureTransformer futureTransactionSummaryTransformer;
+    private final FutureValidator futureValidator;
+    private final FutureWriter writer;
 
     @Autowired
-    LookupService(FlatFileReader flatFileReader, FutureValidator futureValidator) {
+    FutureService(FlatFileReader flatFileReader, FutureValidator futureValidator, FutureTransformer futureTransformer, FutureWriter futureWriter) {
         this.flatFileReader = flatFileReader;
-        futureTransactionSummaryTransformer = new FutureTransformer();
-//        futureValidator = new FutureValidator();
-        writer = new CsvWriter(FutureTransactionSummary.class);
+        this.futureValidator = futureValidator;
+        this.futureTransactionSummaryTransformer = futureTransformer;
+        this.writer = futureWriter;
 
     }
 
-    public List<FutureTransactionSummary> lookupLoad(FutureTransactionLoadRequest lookupLoadRequest) throws FileLoadException {
+    public List<FutureTransactionSummary> lookupLoad(String dataFile, String reportFile)
+            throws FileLoadException {
+
+        LOGGER.info("Data File Name : {}", dataFile);
+        LOGGER.info("Report File Name : {}", reportFile);
+
         List<FutureTransactionSummary> result = new ArrayList<FutureTransactionSummary>();
         try {
-            List<FutureTransaction> transactions = flatFileReader.read(lookupLoadRequest.getSpecfileName(),
-                    lookupLoadRequest.getDatafileName());
+            LOGGER.info("Read Transactions");
+            List<FutureTransaction> transactions = flatFileReader.read(dataFile);
+            LOGGER.info("Validate Transactions");
             futureValidator.validate(transactions);
+            LOGGER.info("Transform Transactions");
             result = futureTransactionSummaryTransformer.transform(transactions);
-            String reportfileName = lookupLoadRequest.getReportfileName();
-            if (StringUtils.isNotEmpty(reportfileName)) {
-                writer.write(result, reportfileName);
-            }
+            LOGGER.info("Writing summary report");
+            writer.write(result, reportFile);
 
         } catch (Exception e) {
             throw new FileLoadException(e.getMessage());

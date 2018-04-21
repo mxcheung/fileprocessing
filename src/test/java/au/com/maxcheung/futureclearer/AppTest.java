@@ -1,25 +1,20 @@
 package au.com.maxcheung.futureclearer;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentCaptor.forClass;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.util.Map;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.boot.Banner;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.core.env.Environment;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import au.com.maxcheung.futureclearer.future.FutureService;
 
 /**
  * Unit tests for {@link App}.
@@ -36,6 +31,12 @@ public class AppTest {
     @InjectMocks
     private App app;
 
+    @Mock
+    private FutureService lookupService;
+
+    @Mock
+    private ConfigurableApplicationContext context;
+
     /**
      * {@link Spy} {@link SpringApplicationBuilder}.
      */
@@ -44,49 +45,24 @@ public class AppTest {
 
     /**
      * Ensures the source of the configured application is the {@link App}.
+     * 
+     * @throws Exception
      */
     @Test
-    public void shouldConfigureSourceAsApplication() {
-        app.configure(builder);
-        verify(builder).sources(App.class);
+    public void shouldAcceptParameter() throws Exception {
+        String[] args = { "Pepperoni", "Black Olives" };
+        app.run(args);
+
+        verify(lookupService, times(1)).lookupLoad("Pepperoni", "Black Olives");
+        verifyNoMoreInteractions(lookupService);
     }
 
-    /**
-     * Ensures configuring gives default properties.
-     */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
     @Test
-    public void shouldConfigureDefaultProperties() {
-        ArgumentCaptor<Map> captor = forClass(Map.class);
-        app.configure(builder);
-        verify(builder).properties(captor.capture());
-
-        // Check the basics
-        assertEquals("Future Clearing Service", captor.getValue().get("application.title"));
-        assertEquals("1.0.0", captor.getValue().get("application.version"));
-        assertEquals("Future Clearer", captor.getValue().get("application.vendor"));
-    }
-
-    /**
-     * Ensures configuring of the banner.
-     */
-    @Test
-    public void shouldConfigureBanner() {
-        Environment envMock = mock(Environment.class);
-        String[] profiles = { "testProfile" };
-        when(envMock.getActiveProfiles()).thenReturn(profiles);
-
-        ArgumentCaptor<Banner> captor = forClass(Banner.class);
-        app.configure(builder);
-        verify(builder).banner(captor.capture());
-
-        Banner banner = captor.getValue();
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
-        banner.printBanner(envMock, App.class, new PrintStream(output));
-
-        // Check the banner printed out the application name somewhere in there
-        assertTrue(output.toString().contains("Future Clearing"));
-        assertTrue(output.toString().contains("testProfile"));
+    public void shouldSkipLoadWhenIncorrectParamter() throws Exception {
+        String[] args = { "Pepperoni" };
+        app.run(args);
+        verify(lookupService, times(0)).lookupLoad(anyString(), anyString());
+        verifyNoMoreInteractions(lookupService);
     }
 
 }
