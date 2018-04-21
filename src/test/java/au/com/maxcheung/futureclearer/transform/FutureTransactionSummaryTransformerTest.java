@@ -1,4 +1,4 @@
-package au.com.maxcheung.futureclearer.flatfile;
+package au.com.maxcheung.futureclearer.transform;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,33 +10,14 @@ import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.batch.item.file.LineMapper;
+import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 
+import au.com.maxcheung.futureclearer.flatfile.FlatFileReaderImpl;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
-import au.com.maxcheung.futureclearer.transform.FutureTransformer;
 
 public class FutureTransactionSummaryTransformerTest {
 
-    private static final BigDecimal TRANSACTION_PRICE_VALUE = new BigDecimal("9250.0000000");
-
-    private static final String TRANSACTION_PRICE = "000092500000000";
-
-    private static final BigDecimal COMMISION_VALUE = new BigDecimal("0000000000.00");
-
-    private static final BigDecimal CLEARING_FEE_VALUE = new BigDecimal("0000000000.30");
-
-    private static final BigDecimal EXCHANGE_BROKER_FEE_VALUE = new BigDecimal("0000000000.60");
-
-    private static final String COMMISSION = "000000000000";
-
-    private static final String CLEARING_FEE = "000000000030";
-
-    private static final String BROKER_FEE = "000000000060";
-
-    private static final Long QUANTITY_SHORT = Long.valueOf(0);
-
-    private static final Long QUANTITY_LONG = Long.valueOf(1L);
 
     private static final String EXPIRATION_DATE = "20100910";
 
@@ -59,18 +40,17 @@ public class FutureTransactionSummaryTransformerTest {
 
     protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
 
-    private static final String RECORD_CODE = "315";
     private FlatFileReaderImpl flatFileReader;
-    private LineMapper<FutureTransaction> lineMapper;
+    private DefaultLineMapper<FutureTransaction> lineMapper;
     private FutureTransaction futureTransactionDTO;
     private FutureTransformer futureTransactionSummaryTransformer;
 
     @Before
     public void setup() throws Exception {
-        futureTransactionSummaryTransformer = new FutureTransformer();
+        futureTransactionSummaryTransformer = new FutureTransformerImpl();
         // flatFileReader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         flatFileReader = new FlatFileReaderImpl();
-        lineMapper = flatFileReader.getLineMapper(FILESPEC_FILEPATH + "future-filespec.csv");
+        lineMapper = flatFileReader.getLineMapper();
         futureTransactionDTO = lineMapper.mapLine(TRANSACTION_ROW1, 0);
     }
 
@@ -94,13 +74,16 @@ public class FutureTransactionSummaryTransformerTest {
 
     @Test
     public void shouldTransformMultipleAccounts() throws Exception {
+        List<FutureTransaction> txns = new ArrayList<FutureTransaction>();
         FutureTransaction futureTransaction1 = lineMapper.mapLine(TRANSACTION_ROW1, 0);
         FutureTransaction futureTransaction2 = lineMapper.mapLine(TRANSACTION_ROW2, 0);
-        List<FutureTransaction> txns = new ArrayList<FutureTransaction>();
+        futureTransaction2.setQuantityLong(null);
+        assertEquals(BigDecimal.ZERO, futureTransaction2.getTotalTransactionAmount());
         txns.add(futureTransaction1);
         txns.add(futureTransaction2);
         List<FutureTransactionSummary> result = futureTransactionSummaryTransformer.transform(txns);
         assertEquals(2, result.size());
     }
+    
 
 }

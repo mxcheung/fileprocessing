@@ -4,7 +4,7 @@
 
 	<property name="PROJECT" value="futureclearer-service" />
 	
-    <property name="LOG_DIR" value="${catalina.base}/logs" />
+    <property name="LOG_DIR" value="${java.io.tmpdir}/logs" />
 
     <appender name="LOSEC_LOG"
               class="ch.qos.logback.core.rolling.RollingFileAppender">

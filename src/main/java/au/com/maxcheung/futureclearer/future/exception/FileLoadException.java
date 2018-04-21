@@ -1,4 +1,4 @@
-package au.com.maxcheung.futureclearer.future;
+package au.com.maxcheung.futureclearer.future.exception;
 
 public class FileLoadException extends Exception {
 

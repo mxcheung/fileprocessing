@@ -33,11 +33,11 @@ public class FutureValidatorTest {
     @Captor
     private ArgumentCaptor<LoggingEvent> captorLoggingEvent;
 
-    private FutureValidator futureValidator;
+    private FutureValidatorImpl futureValidator;
 
     @Before
     public void setup() {
-        futureValidator = spy(new FutureValidator());
+        futureValidator = spy(new FutureValidatorImpl());
         when(futureValidator.logger()).thenReturn(logger);
     }
 
@@ -45,10 +45,12 @@ public class FutureValidatorTest {
     public void shouldLogValidationErrors() throws Exception {
         List<FutureTransaction> transactions = new ArrayList<FutureTransaction>();
         FutureTransaction transaction = new FutureTransaction();
-        transaction.setClientNumber("clientNumber");
+        transaction.setRecordCode("316");
+        transaction.setClientNumber("12345");
         transactions.add(transaction);
         futureValidator.validate(transactions);
-        verify(logger, times(1)).error(anyString());
+        verify(logger, times(1)).error("line: 1 : recordCode : 316 : must match \"[3][1][5]\"");
+        verify(logger, times(1)).error("line: 1 : clientNumber : 12345 : numeric value out of bounds (<4 digits>.<0 digits> expected)");
         verify(logger, times(1)).info(anyString(), anyInt());
         verifyNoMoreInteractions(logger);
     }

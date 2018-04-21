@@ -16,7 +16,7 @@ import au.com.maxcheung.futureclearer.model.FlatFileSpec;
 public class CSVReaderFileSpecTest {
 
     private CsvReader fileSpecCSVReader;
-    protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
+    protected static final String FILESPEC_FILEPATH = "src/test/resources/filespec/";
 
     @Before
     public void setup() {
