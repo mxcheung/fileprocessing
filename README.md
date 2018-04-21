@@ -5,6 +5,9 @@ This module intentions is to:
    
 Future Clearing Service is to manage clearing movement. 
  
+[![Coverage Status](https://coveralls.io/repos/github/mxcheung/fileprocessing/badge.svg?branch=standalone)](https://coveralls.io/github/mxcheung/fileprocessing?branch=standalone)
+
+
  
 ### What is this repository for? ###
 
