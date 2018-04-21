@@ -1,4 +1,4 @@
-package au.com.maxcheung.futureclearer.future.writer;
+package au.com.maxcheung.futureclearer.write;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

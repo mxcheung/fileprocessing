@@ -22,14 +22,15 @@ import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 
 import au.com.maxcheung.futureclearer.flatfile.FlatFileReader;
-import au.com.maxcheung.futureclearer.future.writer.FutureWriterImpl;
+import au.com.maxcheung.futureclearer.future.exception.FileLoadException;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
 import au.com.maxcheung.futureclearer.validate.FutureValidator;
+import au.com.maxcheung.futureclearer.write.FutureWriter;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FutureServiceTest extends FutureTransactionLoadRequestTst {
+public class FutureServiceTest extends FutureServiceTst {
 
     private FutureService futureService;
 
@@ -43,7 +44,7 @@ public class FutureServiceTest extends FutureTransactionLoadRequestTst {
     FutureTransformer futureTransformer;
 
     @Mock
-    FutureWriterImpl futureWriter;
+    FutureWriter futureWriter;
 
     @Before
     public void setup() {
@@ -51,7 +52,7 @@ public class FutureServiceTest extends FutureTransactionLoadRequestTst {
     }
 
     @Test
-    public void shouldLoadLookup() throws UnexpectedInputException, ParseException, Exception {
+    public void shouldLoadFuture() throws UnexpectedInputException, ParseException, Exception {
         List<FutureTransaction> data = new ArrayList<FutureTransaction>();
         FutureTransaction transaction = new FutureTransaction();
         data.add(transaction);

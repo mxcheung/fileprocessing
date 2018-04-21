@@ -1,6 +1,6 @@
 package au.com.maxcheung.futureclearer.future;
 
-public class FutureTransactionLoadRequestTst {
+public abstract class FutureServiceTst {
 
     protected static final String REPORTFILE_NAME = "reportfileName";
 

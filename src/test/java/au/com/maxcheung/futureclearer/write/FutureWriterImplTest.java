@@ -1,4 +1,4 @@
-package au.com.maxcheung.futureclearer.future.writer;
+package au.com.maxcheung.futureclearer.write;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -19,8 +19,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.event.LoggingEvent;
 
-import au.com.maxcheung.futureclearer.future.writer.FutureWriterImpl;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
+import au.com.maxcheung.futureclearer.write.FutureWriterImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FutureWriterImplTest {

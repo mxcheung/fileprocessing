@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import au.com.maxcheung.futureclearer.flatfile.FlatFileReader;
-import au.com.maxcheung.futureclearer.future.writer.FutureWriter;
+import au.com.maxcheung.futureclearer.future.exception.FileLoadException;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
 import au.com.maxcheung.futureclearer.validate.FutureValidator;
-
+import au.com.maxcheung.futureclearer.write.FutureWriter;
 
 @Service
 public class FutureService {
@@ -27,7 +27,8 @@ public class FutureService {
     private final FutureWriter writer;
 
     @Autowired
-    FutureService(FlatFileReader flatFileReader, FutureValidator futureValidator, FutureTransformer futureTransformer, FutureWriter futureWriter) {
+    FutureService(FlatFileReader flatFileReader, FutureValidator futureValidator, FutureTransformer futureTransformer,
+            FutureWriter futureWriter) {
         this.flatFileReader = flatFileReader;
         this.futureValidator = futureValidator;
         this.futureTransactionSummaryTransformer = futureTransformer;
@@ -35,12 +36,9 @@ public class FutureService {
 
     }
 
-    public List<FutureTransactionSummary> lookupLoad(String dataFile, String reportFile)
-            throws FileLoadException {
-
+    public List<FutureTransactionSummary> lookupLoad(String dataFile, String reportFile) throws FileLoadException {
         LOGGER.info("Data File Name : {}", dataFile);
         LOGGER.info("Report File Name : {}", reportFile);
-
         List<FutureTransactionSummary> result = new ArrayList<FutureTransactionSummary>();
         try {
             LOGGER.info("Read Transactions");
