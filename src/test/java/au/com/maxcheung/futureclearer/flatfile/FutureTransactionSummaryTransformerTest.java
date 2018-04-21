@@ -12,13 +12,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.batch.item.file.LineMapper;
 
-import au.com.maxcheung.futureclearer.csv.CsvReader;
-import au.com.maxcheung.futureclearer.model.FlatFileSpec;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
-import au.com.maxcheung.futureclearer.model.FutureTransactionDTO;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
-import au.com.maxcheung.futureclearer.transform.FutureTransactionSummaryTransformer;
-import au.com.maxcheung.futureclearer.transform.FutureTransactionTransformer;
+import au.com.maxcheung.futureclearer.transform.FutureTransformer;
 
 public class FutureTransactionSummaryTransformerTest {
 
@@ -58,30 +54,30 @@ public class FutureTransactionSummaryTransformerTest {
 
     private static final String CLIENT_TYPE = "CL";
 
-    private static final String TRANSACTION_ROW = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
+    private static final String TRANSACTION_ROW1 = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
+    private static final String TRANSACTION_ROW2 = "315CL  123400020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
 
     protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
 
     private static final String RECORD_CODE = "315";
-    private FutureTransactionTransformer transformer;
-    private FlatFileReader flatFileReader;
-    private LineMapper<FutureTransactionDTO> lineMapper;
-    private FutureTransactionDTO futureTransactionDTO;
-    private FutureTransactionSummaryTransformer futureTransactionSummaryTransformer;
+    private FlatFileReaderImpl flatFileReader;
+    private LineMapper<FutureTransaction> lineMapper;
+    private FutureTransaction futureTransactionDTO;
+    private FutureTransformer futureTransactionSummaryTransformer;
 
     @Before
     public void setup() throws Exception {
-        transformer = new FutureTransactionTransformer();
-        futureTransactionSummaryTransformer = new FutureTransactionSummaryTransformer();
-        flatFileReader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
+        futureTransactionSummaryTransformer = new FutureTransformer();
+        // flatFileReader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
+        flatFileReader = new FlatFileReaderImpl();
         lineMapper = flatFileReader.getLineMapper(FILESPEC_FILEPATH + "future-filespec.csv");
-        futureTransactionDTO = lineMapper.mapLine(TRANSACTION_ROW, 0);
+        futureTransactionDTO = lineMapper.mapLine(TRANSACTION_ROW1, 0);
     }
 
     @Test
     public void shouldTransformFutureTransaction() throws Exception {
-        FutureTransaction futureTransaction1 = transformer.transform(futureTransactionDTO);
-        FutureTransaction futureTransaction2 = transformer.transform(futureTransactionDTO);
+        FutureTransaction futureTransaction1 = futureTransactionDTO;
+        FutureTransaction futureTransaction2 = futureTransactionDTO;
         List<FutureTransaction> txns = new ArrayList<FutureTransaction>();
         txns.add(futureTransaction1);
         txns.add(futureTransaction2);
@@ -97,11 +93,9 @@ public class FutureTransactionSummaryTransformerTest {
     }
 
     @Test
-    public void shouldTransformMulipleAccounts() throws Exception {
-        FutureTransaction futureTransaction1 = transformer.transform(futureTransactionDTO);
-        FutureTransaction futureTransaction2 = transformer.transform(futureTransactionDTO);
-        futureTransaction2.setAccountNumber(ACCOUNT_NUMBER + "2");
-
+    public void shouldTransformMultipleAccounts() throws Exception {
+        FutureTransaction futureTransaction1 = lineMapper.mapLine(TRANSACTION_ROW1, 0);
+        FutureTransaction futureTransaction2 = lineMapper.mapLine(TRANSACTION_ROW2, 0);
         List<FutureTransaction> txns = new ArrayList<FutureTransaction>();
         txns.add(futureTransaction1);
         txns.add(futureTransaction2);

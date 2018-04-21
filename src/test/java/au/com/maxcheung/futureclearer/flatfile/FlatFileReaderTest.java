@@ -8,9 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import au.com.maxcheung.futureclearer.App;
-import au.com.maxcheung.futureclearer.csv.CsvReader;
-import au.com.maxcheung.futureclearer.model.FlatFileSpec;
-import au.com.maxcheung.futureclearer.model.FutureTransactionDTO;
+import au.com.maxcheung.futureclearer.model.FutureTransaction;
 
 /**
  * Unit tests for {@link App}.
@@ -28,14 +26,16 @@ public class FlatFileReaderTest {
 
     @Before
     public void setup() {
-        reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
+        // reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
+        reader = new FlatFileReaderImpl();
+
     }
 
     @Test
     public void shouldReadFixedLengthFile() throws Exception {
         String specFile = FILESPEC_FILEPATH + FUTURE_FILESPEC_CSV;
         String dataFile = FILESPEC_FILEPATH + DATAFILE_TXT;
-        List<FutureTransactionDTO> transactions = reader.read(specFile, dataFile);
+        List<FutureTransaction> transactions = reader.read(specFile, dataFile);
         assertEquals(717, transactions.size());
     }
 

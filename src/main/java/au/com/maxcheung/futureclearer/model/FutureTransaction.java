@@ -8,6 +8,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -16,68 +18,104 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class FutureTransaction {
 
     @Pattern(regexp = "[3][1][5]")
+
     private String recordCode;
+
+
     private String clientType;
+
 
     @Digits(integer = 4, fraction = 0)
     private String clientNumber;
 
+
     @Digits(integer = 4, fraction = 0)
     private String accountNumber;
+
 
     @Digits(integer = 4, fraction = 0)
     private String subAccountNumber;
 
+
     private String oppositePartyCode;
+
     private String productGroupCode;
+
     private String exchangeCode;
+
     private String symbol;
+
 
     @Pattern(regexp = "[0-9]{8}")
     private String expirationDate;
 
+
     private String currencyCode;
+
     private String movementCode;
+
 
     @Size(min = 1, max = 1)
     private String buySellCode;
+
+
     private String quantityLongSign;
+
 
     @Digits(integer = 10, fraction = 0)
     private Long quantityLong;
 
+
     private String quantityShortSign;
+
 
     @Digits(integer = 10, fraction = 0)
     private Long quantityShort;
 
+
     @Digits(integer = 12, fraction = 2)
-    private BigDecimal exchangeBrokerFee;
+    private String exchangeBrokerFee;
+
 
     private String exchangeBrokerFeeDC;
+
     private String exchangeBrokerFeeCurCode;
-    private BigDecimal clearingFee;
+
+    private String clearingFee;
+
     private String clearingFeeDC;
+
     private String clearingFeeCurCode;
-    private BigDecimal commission;
+
+    private String commission;
+
     private String commissionDC;
+
     private String commissionCurCode;
+
 
     @Pattern(regexp = "[0-9]{8}")
     private String transactionDate;
 
+
     @Digits(integer = 6, fraction = 0)
     private String futureReference;
 
+
     private String ticketNumber;
+
 
     @Digits(integer = 6, fraction = 0)
     private String externalNumber;
 
+
     @Digits(integer = 15, fraction = 7)
-    private BigDecimal transactionPrice;
+    private String transactionPrice;
+
     private String traderInitials;
+
     private String oppositeTraderId;
+
     private String openCloseCode;
 
     public String getRecordCode() {
@@ -216,11 +254,11 @@ public class FutureTransaction {
         this.quantityShort = quantityShort;
     }
 
-    public BigDecimal getExchangeBrokerFee() {
+    public String getExchangeBrokerFee() {
         return exchangeBrokerFee;
     }
 
-    public void setExchangeBrokerFee(BigDecimal exchangeBrokerFee) {
+    public void setExchangeBrokerFee(String exchangeBrokerFee) {
         this.exchangeBrokerFee = exchangeBrokerFee;
     }
 
@@ -240,11 +278,11 @@ public class FutureTransaction {
         this.exchangeBrokerFeeCurCode = exchangeBrokerFeeCurCode;
     }
 
-    public BigDecimal getClearingFee() {
+    public String getClearingFee() {
         return clearingFee;
     }
 
-    public void setClearingFee(BigDecimal clearingFee) {
+    public void setClearingFee(String clearingFee) {
         this.clearingFee = clearingFee;
     }
 
@@ -264,11 +302,11 @@ public class FutureTransaction {
         this.clearingFeeCurCode = clearingFeeCurCode;
     }
 
-    public BigDecimal getCommission() {
+    public String getCommission() {
         return commission;
     }
 
-    public void setCommission(BigDecimal commission) {
+    public void setCommission(String commission) {
         this.commission = commission;
     }
 
@@ -320,14 +358,6 @@ public class FutureTransaction {
         this.externalNumber = externalNumber;
     }
 
-    public BigDecimal getTransactionPrice() {
-        return transactionPrice;
-    }
-
-    public void setTransactionPrice(BigDecimal transactionPrice) {
-        this.transactionPrice = transactionPrice;
-    }
-
     public String getTraderInitials() {
         return traderInitials;
     }
@@ -352,23 +382,36 @@ public class FutureTransaction {
         this.openCloseCode = openCloseCode;
     }
 
-    public String getClientInfo() {
-        return Arrays.asList(clientType, clientNumber, accountNumber, subAccountNumber).stream()
+    public String getTransactionPrice() {
+        return transactionPrice;
+    }
+
+    public void setTransactionPrice(String transactionPrice) {
+        this.transactionPrice = transactionPrice;
+    }
+
+    public String getClientInfoKey() {
+        return Arrays.asList(getClientType(), getClientNumber(), getAccountNumber(), getSubAccountNumber()).stream()
                 .collect(Collectors.joining("_"));
     }
 
-    public String getProductInfo() {
-        return Arrays.asList(productGroupCode, exchangeCode, symbol, expirationDate).stream()
+    public String getProductInfoKey() {
+        return Arrays.asList(getProductGroupCode(), getExchangeCode(), getSymbol(), getExpirationDate()).stream()
                 .collect(Collectors.joining("_"));
+    }
+
+    public BigDecimal getTotalTransactionAmount() {
+        BigDecimal qtyLongAmt = getBigDecimal(getQuantityLongSign() + getQuantityLong());
+        BigDecimal qtyShortAmt = getBigDecimal(getQuantityShortSign() + getQuantityShort());
+        return qtyLongAmt.subtract(qtyShortAmt);
+    }
+
+    private BigDecimal getBigDecimal(String input) {
+        return NumberUtils.isDigits(input) ? new BigDecimal(input) : BigDecimal.ZERO;
     }
 
     public String getCompositeKey() {
-        return Arrays.asList(getClientInfo(), getProductInfo()).stream().collect(Collectors.joining("_"));
-    }
-
-    public BigDecimal getTotalAmount() {
-        long total = quantityLong - quantityShort;
-        return new BigDecimal(total);
+        return Arrays.asList(getClientInfoKey(), getProductInfoKey()).stream().collect(Collectors.joining("_"));
     }
 
 }

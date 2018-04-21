@@ -6,32 +6,35 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
-public class FutureTransactionSummaryTransformer {
+public class FutureTransformer {
 
-    public FutureTransactionSummaryTransformer() {
+    private static final Logger LOGGER = LoggerFactory.getLogger(FutureTransformer.class);
+
+    public FutureTransformer() {
     }
 
     public List<FutureTransactionSummary> transform(List<FutureTransaction> futureTransactions) {
+        List<FutureTransactionSummary> summaryList = new ArrayList<FutureTransactionSummary>();
         Map<String, List<FutureTransaction>> transactionsByGroup = futureTransactions.stream()
                 .collect(Collectors.groupingBy(FutureTransaction::getCompositeKey));
-
-        List<FutureTransactionSummary> summaryList = new ArrayList<FutureTransactionSummary>();
         transactionsByGroup.forEach((k, v) -> {
-            List<FutureTransaction> transactions = v;
-            String clientInfo = transactions.get(0).getClientInfo();
-            String productInfo = transactions.get(0).getProductInfo();
-            BigDecimal totalTransactionAmount = transactions.stream().map(FutureTransaction::getTotalAmount)
+            BigDecimal totalTransactionAmount = v.stream().map(FutureTransaction::getTotalTransactionAmount)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
             FutureTransactionSummary summary = new FutureTransactionSummary();
-            summary.setClientInfo(clientInfo);
-            summary.setProductInfo(productInfo);
+            summary.setClientInfo(v.get(0).getClientInfoKey());
+            summary.setProductInfo(v.get(0).getProductInfoKey());
             summary.setTransactionInfo(totalTransactionAmount.toString());
             summary.setTotalTransactionAmount(totalTransactionAmount);
             summaryList.add(summary);
         });
+        LOGGER.info("Transformed input rows : {}  summary rows : {} ",  futureTransactions.size(), summaryList.size());
+
         return summaryList;
     }
 

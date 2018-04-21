@@ -32,7 +32,7 @@ import org.springframework.core.io.FileSystemResource;
 import au.com.maxcheung.futureclearer.App;
 import au.com.maxcheung.futureclearer.csv.CsvReader;
 import au.com.maxcheung.futureclearer.model.FlatFileSpec;
-import au.com.maxcheung.futureclearer.model.FutureTransactionDTO;
+import au.com.maxcheung.futureclearer.model.FutureTransaction;
 
 /**
  * Unit tests for {@link App}.
@@ -62,7 +62,8 @@ public class FileTokenizerTest {
     @Test
     public void shouldTokenize() throws Exception {
         
-        FlatFileReader flatFileReader = new FlatFileReader(fileSpecCSVReader);
+     //   FlatFileReader flatFileReader = new FlatFileReader(fileSpecCSVReader);
+        FlatFileReaderImpl flatFileReader = new FlatFileReaderImpl();
         
         FixedLengthTokenizer tokenizer = flatFileReader.getTokenizer(FILESPEC_FILEPATH + "future-filespec.csv");
 
@@ -73,18 +74,18 @@ public class FileTokenizerTest {
         assertEquals("20100820", props.getProperty("transactionDate"));
         
 
-        DefaultLineMapper<FutureTransactionDTO> lineMapper = new DefaultLineMapper<FutureTransactionDTO>();
+        DefaultLineMapper<FutureTransaction> lineMapper = new DefaultLineMapper<FutureTransaction>();
         // FlatFileItemReader<Ticket> reader = new FlatFileItemReader<>();
-        BeanWrapperFieldSetMapper<FutureTransactionDTO> wrapper = new BeanWrapperFieldSetMapper<FutureTransactionDTO>();
-        wrapper.setTargetType(FutureTransactionDTO.class);
+        BeanWrapperFieldSetMapper<FutureTransaction> wrapper = new BeanWrapperFieldSetMapper<FutureTransaction>();
+        wrapper.setTargetType(FutureTransaction.class);
         lineMapper.setFieldSetMapper(wrapper);
         lineMapper.setLineTokenizer(tokenizer);
         // reader.setLineMapper(lineMapper);
-        FutureTransactionDTO ticket = lineMapper.mapLine(line, 0);
+        FutureTransaction ticket = lineMapper.mapLine(line, 0);
         assertEquals("CL", ticket.getClientType());
         assertEquals(Long.valueOf(1), ticket.getQuantityLong());
 
-        FlatFileItemReader<FutureTransactionDTO> r = new FlatFileItemReader<>();
+        FlatFileItemReader<FutureTransaction> r = new FlatFileItemReader<>();
         String dataFile = FILESPEC_FILEPATH + "datafile.txt";
         File file = new File(dataFile);
         r.setResource(new FileSystemResource(file));
@@ -92,16 +93,16 @@ public class FileTokenizerTest {
         r.open(new ExecutionContext());
         ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         Validator validator = factory.getValidator();
-        List<FutureTransactionDTO> tickets = new ArrayList<>();
-        FutureTransactionDTO store = null;
+        List<FutureTransaction> tickets = new ArrayList<>();
+        FutureTransaction store = null;
         int lineNo = 1;
         do {
 
             store = r.read();
 
             if (store != null) {
-                Set<ConstraintViolation<FutureTransactionDTO>> violations = validator.validate(store);
-                for (ConstraintViolation<FutureTransactionDTO> violation : violations) {
+                Set<ConstraintViolation<FutureTransaction>> violations = validator.validate(store);
+                for (ConstraintViolation<FutureTransaction> violation : violations) {
                     LOGGER.error("line: " + lineNo + " : " + violation.getPropertyPath() + " : "
                             + violation.getInvalidValue() + " : " + violation.getMessage());
                 }

@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
@@ -17,6 +20,8 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 public class CsvWriter extends BaseWriter {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(CsvWriter.class);
+
     private final CsvMapper mapper = new CsvMapper();
     private final CsvSchema schema;
 
@@ -26,7 +31,9 @@ public class CsvWriter extends BaseWriter {
     }
 
     private CsvSchema getSchema(final Class<?> type) {
-        CsvSchema csvSchema = mapper.schemaFor(type);
+        CsvSchema csvSchema = mapper
+        .schemaFor(type)
+        .withHeader();
         csvSchema = csvSchema.withColumnSeparator(',');
         return csvSchema;
     }
@@ -37,6 +44,8 @@ public class CsvWriter extends BaseWriter {
 
     public <T> void write(List<T> rows, Writer writer) throws FileNotFoundException, IOException {
         ObjectWriter myObjectWriter = mapper.writer(schema);
+        LOGGER.info("Writing rows : {}",  rows.size());
+
         myObjectWriter.writeValue(writer, rows);
 
     }
