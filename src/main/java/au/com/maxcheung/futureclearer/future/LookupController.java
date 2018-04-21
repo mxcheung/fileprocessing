@@ -42,7 +42,7 @@ public class LookupController {
     @ResponseStatus(OK)
     @ResponseBody
     public ResponseEntity<List<FutureTransactionSummary>> lookupRefresh(
-            @Valid @RequestBody final LookupLoadRequest lookupLoadRequest) throws FileLoadException {
+            @Valid @RequestBody final FutureTransactionLoadRequest lookupLoadRequest) throws FileLoadException {
         return new ResponseEntity<>(lookupService.lookupLoad(lookupLoadRequest), OK);
     }
 

@@ -10,7 +10,9 @@ import javax.validation.ValidatorFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FutureValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FutureValidator.class);
@@ -26,14 +28,23 @@ public class FutureValidator {
     public <T> void validate(List<T> rows) {
         int lineNo = 1;
         for (T row : rows) {
-            Set<ConstraintViolation<T>> violations = validator.validate(row);
+            Set<ConstraintViolation<T>> violations = validate(row);
             for (ConstraintViolation<T> violation : violations) {
-                LOGGER.error("line: " + lineNo + " : " + violation.getPropertyPath() + " : "
+                logger().error("line: " + lineNo + " : " + violation.getPropertyPath() + " : "
                         + violation.getInvalidValue() + " : " + violation.getMessage());
             }
 
         }
-        LOGGER.info("Validated rows : {}",  rows.size());
+        logger().info("Validated rows : {}",  rows.size());
     }
 
+    private <T> Set<ConstraintViolation<T>> validate(T row) {
+        Set<ConstraintViolation<T>> violations = validator.validate(row);
+        return violations;
+    }
+
+    // make a package private method for testing purposes to allow you to inject a mock
+    Logger logger() {
+        return LOGGER;
+    }
 }

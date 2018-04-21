@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
  * @author Max Cheung <max.cheung@lonsec.com.au>
  */
 
-public class LookupLoadRequest {
+public class FutureTransactionLoadRequest {
 
     @NotNull
     private String specfileName;

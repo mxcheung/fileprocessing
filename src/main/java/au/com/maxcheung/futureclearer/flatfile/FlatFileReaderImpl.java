@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ExecutionContext;
+import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -33,7 +34,7 @@ import au.com.maxcheung.futureclearer.model.FutureTransaction;
  */
 
 @Service
-public class FlatFileReaderImpl implements FlatFileReader {
+public class FlatFileReaderImpl extends BaseReader implements FlatFileReader  {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FlatFileReaderImpl.class);
 
@@ -43,10 +44,8 @@ public class FlatFileReaderImpl implements FlatFileReader {
 
     public FlatFileReaderImpl() {
         this.csvReader = new CsvReader(FlatFileSpec.class);
-//        this.csvReader = csvReader;
         lineMapper = getLineMapper();
-        reader = new FlatFileItemReader<>();
-        reader.setLineMapper(lineMapper);
+        reader = (FlatFileItemReader<FutureTransaction>) getReader(lineMapper);
     }
     
     @Override
@@ -59,6 +58,13 @@ public class FlatFileReaderImpl implements FlatFileReader {
         return rows;
     }
 
+    
+    public ItemReader<FutureTransaction> getReader(LineMapper<FutureTransaction> futureLineMapper) {
+        FlatFileItemReader<FutureTransaction> flatFileItemReader = new FlatFileItemReader<>();
+        flatFileItemReader.setLineMapper(futureLineMapper);
+        return flatFileItemReader;
+    }
+    
     private DefaultLineMapper<FutureTransaction> getLineMapper() {
         lineMapper = new DefaultLineMapper<FutureTransaction>();
         lineMapper.setFieldSetMapper(getFieldSetMapper());
@@ -109,10 +115,5 @@ public class FlatFileReaderImpl implements FlatFileReader {
         tokenizer.setColumns(rangeList.toArray(new Range[0]));
         return tokenizer;
     }
-
-    public FutureTransaction readLine(String line) throws Exception {
-        return lineMapper.mapLine(line, 0);
-    }
-
 
 }

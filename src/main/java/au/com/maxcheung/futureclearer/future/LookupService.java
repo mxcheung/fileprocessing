@@ -31,15 +31,15 @@ public class LookupService {
     private CsvWriter writer;
 
     @Autowired
-    LookupService(FlatFileReader flatFileReader) {
+    LookupService(FlatFileReader flatFileReader, FutureValidator futureValidator) {
         this.flatFileReader = flatFileReader;
         futureTransactionSummaryTransformer = new FutureTransformer();
-        futureValidator = new FutureValidator();
+//        futureValidator = new FutureValidator();
         writer = new CsvWriter(FutureTransactionSummary.class);
 
     }
 
-    public List<FutureTransactionSummary> lookupLoad(LookupLoadRequest lookupLoadRequest) throws FileLoadException {
+    public List<FutureTransactionSummary> lookupLoad(FutureTransactionLoadRequest lookupLoadRequest) throws FileLoadException {
         List<FutureTransactionSummary> result = new ArrayList<FutureTransactionSummary>();
         try {
             List<FutureTransaction> transactions = flatFileReader.read(lookupLoadRequest.getSpecfileName(),

@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import au.com.maxcheung.futureclearer.App;
 import au.com.maxcheung.futureclearer.csv.CsvWriter;
+import au.com.maxcheung.futureclearer.future.FileSpecException;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
@@ -20,13 +21,13 @@ import au.com.maxcheung.futureclearer.validate.FutureValidator;
  * @author Max Cheung <max.cheung@optusnet.com.au>
  *
  */
-public class FutureClearingTest {
+public class FlatFileReaderImplTest {
 
     protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
     private static final String FUTURE_FILESPEC_CSV = "future-filespec.csv";
     private static final String DATAFILE_TXT = "datafile.txt";
 
-    private FlatFileReader reader;
+    private FlatFileReaderImpl reader;
     private CsvWriter writer;
     private FutureTransformer futureTransactionSummaryTransformer;
     private FutureValidator futureValidator;
@@ -47,11 +48,15 @@ public class FutureClearingTest {
         List<FutureTransaction> transactions = reader.read(specFile, dataFile);
         assertEquals(717, transactions.size());
         futureValidator.validate(transactions);
-        
         List<FutureTransactionSummary> summary = futureTransactionSummaryTransformer.transform(transactions);
         assertEquals(5, summary.size());
         String rfiMasterFilePath = FILESPEC_FILEPATH + "out.csv";
         writer.write(summary, rfiMasterFilePath);
+    }
+
+    @Test(expected = FileSpecException.class)
+    public void shouldThrowExceptionOnInvalidFile() throws Exception {
+        reader.getLineMapper("nonExistantSpec");
 
     }
 
