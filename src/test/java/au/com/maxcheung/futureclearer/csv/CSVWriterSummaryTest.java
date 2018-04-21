@@ -8,29 +8,28 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import au.com.maxcheung.futureclearer.model.FutureTransaction;
+import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
 public class CSVWriterSummaryTest {
 
-    private static final String ACCOUNT_NUMBER = "1";
+    private static final String CLIENT_INFO = "clientInfo";
     
     private CsvWriter genericCSVWriter;
-    protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
+    protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\";
 
     @Before
     public void setup() {
-        genericCSVWriter = new CsvWriter(FutureTransaction.class);
+        genericCSVWriter = new CsvWriter(FutureTransactionSummary.class);
     }
 
     @Test
     public void shouldWriteOutputFile() throws FileNotFoundException, IOException {
-        String rfiMasterFilePath = FILESPEC_FILEPATH + "out.csv";
-        List<FutureTransaction> rows = new ArrayList<FutureTransaction>();
-        FutureTransaction summaryRow = new FutureTransaction();
-        summaryRow.setAccountNumber(ACCOUNT_NUMBER);
+        String rfiMasterFilePath = FILESPEC_FILEPATH + "summary.csv";
+        List<FutureTransactionSummary> rows = new ArrayList<FutureTransactionSummary>();
+        FutureTransactionSummary summaryRow = new FutureTransactionSummary();
+        summaryRow.setClientInfo(CLIENT_INFO);
         rows.add(summaryRow);
         genericCSVWriter.write(rows, rfiMasterFilePath);
-
     }
 
 }
