@@ -19,7 +19,7 @@ import au.com.maxcheung.futureclearer.model.FutureTransaction;
  */
 public class FlatFileReaderTest {
 
-    protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
+    protected static final String FILESPEC_FILEPATH = "src/test/resources/filespec/";
     private static final String FUTURE_FILESPEC_CSV = "future-filespec.csv";
     private static final String DATAFILE_TXT = "datafile.txt";
 
