@@ -38,6 +38,8 @@ public class FutureTransactionSummaryTransformerTest {
 
     private static final Long QUANTITY_LONG = Long.valueOf(1L);
 
+    private static final String RECORD_CODE = "315";
+
     private static final String EXPIRATION_DATE = "20100910";
 
     private static final String SYMBOL = "NK";
@@ -59,7 +61,6 @@ public class FutureTransactionSummaryTransformerTest {
 
     protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
 
-    private static final String RECORD_CODE = "315";
     private FlatFileReaderImpl flatFileReader;
     private DefaultLineMapper<FutureTransaction> lineMapper;
     private FutureTransaction futureTransactionDTO;
@@ -94,13 +95,16 @@ public class FutureTransactionSummaryTransformerTest {
 
     @Test
     public void shouldTransformMultipleAccounts() throws Exception {
+        List<FutureTransaction> txns = new ArrayList<FutureTransaction>();
         FutureTransaction futureTransaction1 = lineMapper.mapLine(TRANSACTION_ROW1, 0);
         FutureTransaction futureTransaction2 = lineMapper.mapLine(TRANSACTION_ROW2, 0);
-        List<FutureTransaction> txns = new ArrayList<FutureTransaction>();
+        futureTransaction2.setQuantityLong(null);
+        assertEquals(BigDecimal.ZERO, futureTransaction2.getTotalTransactionAmount());
         txns.add(futureTransaction1);
         txns.add(futureTransaction2);
         List<FutureTransactionSummary> result = futureTransactionSummaryTransformer.transform(txns);
         assertEquals(2, result.size());
     }
+    
 
 }

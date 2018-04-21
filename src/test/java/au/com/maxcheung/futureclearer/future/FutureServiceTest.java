@@ -3,11 +3,14 @@ package au.com.maxcheung.futureclearer.future;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +31,7 @@ import au.com.maxcheung.futureclearer.validate.FutureValidator;
 @RunWith(MockitoJUnitRunner.class)
 public class FutureServiceTest extends FutureTransactionLoadRequestTst {
 
-    private FutureService lookupService;
+    private FutureService futureService;
 
     @Mock
     FlatFileReader flatFileReader;
@@ -44,9 +47,8 @@ public class FutureServiceTest extends FutureTransactionLoadRequestTst {
 
     @Before
     public void setup() {
-        lookupService = new FutureService(flatFileReader, futureValidator, futureTransformer, futureWriter);
+        futureService = new FutureService(flatFileReader, futureValidator, futureTransformer, futureWriter);
     }
-
 
     @Test
     public void shouldLoadLookup() throws UnexpectedInputException, ParseException, Exception {
@@ -54,12 +56,18 @@ public class FutureServiceTest extends FutureTransactionLoadRequestTst {
         FutureTransaction transaction = new FutureTransaction();
         data.add(transaction);
         when(flatFileReader.read(DATAFILE_NAME)).thenReturn(data);
-        List<FutureTransactionSummary> lookupRows = lookupService.lookupLoad( DATAFILE_NAME, REPORTFILE_NAME);
+        List<FutureTransactionSummary> lookupRows = futureService.lookupLoad(DATAFILE_NAME, REPORTFILE_NAME);
         assertEquals(0, lookupRows.size());
         verify(futureValidator, times(1)).validate(any());
         verifyNoMoreInteractions(futureValidator);
         verify(futureWriter, times(1)).write(any(), anyString());
         verifyNoMoreInteractions(futureWriter);
+    }
+
+    @Test(expected = FileLoadException.class)
+    public void shouldThrowFileLoadException() throws UnexpectedInputException, ParseException, Exception {
+        doThrow(new FileNotFoundException()).when(flatFileReader).read(DATAFILE_NAME);
+        futureService.lookupLoad(DATAFILE_NAME, REPORTFILE_NAME);
     }
 
 }
