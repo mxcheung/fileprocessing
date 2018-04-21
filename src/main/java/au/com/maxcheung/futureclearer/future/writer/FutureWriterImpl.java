@@ -1,4 +1,4 @@
-package au.com.maxcheung.futureclearer.future;
+package au.com.maxcheung.futureclearer.future.writer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,26 +12,23 @@ import org.springframework.stereotype.Service;
 import au.com.maxcheung.futureclearer.csv.CsvWriter;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
-/**
- * Lookup service supports the maintenance of the lookup repository. Main usage:
- * 1. Fetch lookups based on a shopping 2. Refresh lookup, refreshes repository
- * using file based resource.
- * 
- * @author Max Cheung <max.cheung@lonsec.com.au>
- */
 
 @Service
-public class FutureWriter {
+public class FutureWriterImpl implements FutureWriter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FutureWriter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FutureWriterImpl.class);
 
     private CsvWriter writer;
 
     @Autowired
-    FutureWriter() {
+    FutureWriterImpl() {
         writer = new CsvWriter(FutureTransactionSummary.class);
     }
 
+    /* (non-Javadoc)
+     * @see au.com.maxcheung.futureclearer.future.writer.FutureWriter#write(java.util.List, java.lang.String)
+     */
+    @Override
     public <T> void write(List<T> rows, String filename) throws FileNotFoundException, IOException {
         writer.write(rows, filename);
         logger().info("Written rows : {} to file : {}.", rows.size(), filename);

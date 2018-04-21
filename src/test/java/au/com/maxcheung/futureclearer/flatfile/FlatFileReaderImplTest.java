@@ -13,6 +13,7 @@ import au.com.maxcheung.futureclearer.csv.CsvWriter;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
+import au.com.maxcheung.futureclearer.transform.FutureTransformerImpl;
 import au.com.maxcheung.futureclearer.validate.FutureValidator;
 import au.com.maxcheung.futureclearer.validate.FutureValidatorImpl;
 
@@ -38,7 +39,7 @@ public class FlatFileReaderImplTest {
 //        reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         reader = new FlatFileReaderImpl();
         writer = new CsvWriter(FutureTransactionSummary.class);
-        futureTransactionSummaryTransformer = new FutureTransformer();
+        futureTransactionSummaryTransformer = new FutureTransformerImpl();
         futureValidator = new FutureValidatorImpl();
     }
 

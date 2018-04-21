@@ -9,18 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import au.com.maxcheung.futureclearer.flatfile.FlatFileReader;
+import au.com.maxcheung.futureclearer.future.writer.FutureWriter;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
 import au.com.maxcheung.futureclearer.validate.FutureValidator;
 
-/**
- * Lookup service supports the maintenance of the lookup repository. Main usage:
- * 1. Fetch lookups based on a shopping 2. Refresh lookup, refreshes repository
- * using file based resource.
- * 
- * @author Max Cheung <max.cheung@lonsec.com.au>
- */
 
 @Service
 public class FutureService {

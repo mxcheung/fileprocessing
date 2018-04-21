@@ -10,7 +10,6 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +22,7 @@ import org.springframework.batch.item.ParseException;
 import org.springframework.batch.item.UnexpectedInputException;
 
 import au.com.maxcheung.futureclearer.flatfile.FlatFileReader;
+import au.com.maxcheung.futureclearer.future.writer.FutureWriterImpl;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
@@ -43,7 +43,7 @@ public class FutureServiceTest extends FutureTransactionLoadRequestTst {
     FutureTransformer futureTransformer;
 
     @Mock
-    FutureWriter futureWriter;
+    FutureWriterImpl futureWriter;
 
     @Before
     public void setup() {

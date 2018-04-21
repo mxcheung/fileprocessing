@@ -1,4 +1,4 @@
-package au.com.maxcheung.futureclearer.future;
+package au.com.maxcheung.futureclearer.future.writer;
 
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
@@ -19,10 +19,11 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.event.LoggingEvent;
 
+import au.com.maxcheung.futureclearer.future.writer.FutureWriterImpl;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FutureWriterTest {
+public class FutureWriterImplTest {
 
     protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\";
 
@@ -32,11 +33,11 @@ public class FutureWriterTest {
     @Captor
     private ArgumentCaptor<LoggingEvent> captorLoggingEvent;
 
-    private FutureWriter futureWriter;
+    private FutureWriterImpl futureWriter;
 
     @Before
     public void setup() {
-        futureWriter = spy(new FutureWriter());
+        futureWriter = spy(new FutureWriterImpl());
         when(futureWriter.logger()).thenReturn(logger);
     }
 

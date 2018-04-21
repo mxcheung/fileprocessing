@@ -15,6 +15,7 @@ import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 import au.com.maxcheung.futureclearer.transform.FutureTransformer;
+import au.com.maxcheung.futureclearer.transform.FutureTransformerImpl;
 
 public class FutureTransactionSummaryTransformerTest {
 
@@ -68,7 +69,7 @@ public class FutureTransactionSummaryTransformerTest {
 
     @Before
     public void setup() throws Exception {
-        futureTransactionSummaryTransformer = new FutureTransformer();
+        futureTransactionSummaryTransformer = new FutureTransformerImpl();
         // flatFileReader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         flatFileReader = new FlatFileReaderImpl();
         lineMapper = flatFileReader.getLineMapper();
