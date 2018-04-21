@@ -5,7 +5,7 @@ This module intentions is to:
    
 Future Clearing Service is to manage clearing movement. 
  
-[![travis](https://travis-ci.org/mxcheung/fileprocessing.svg?branch=master)]
+![travis](https://travis-ci.org/mxcheung/fileprocessing.svg?branch=master)
 (https://travis-ci.org/mxcheung/fileprocessing?branch=master)
 [![Coverage Status](https://coveralls.io/repos/github/mxcheung/fileprocessing/badge.svg?branch=master)](https://coveralls.io/github/mxcheung/fileprocessing?branch=master)
 
