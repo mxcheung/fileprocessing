@@ -25,12 +25,11 @@ public class FileTokenizerTest {
     private static final String LINE = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 "
             + "0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
 
-    private FlatFileReaderImpl flatFileReader;
     private FixedLengthTokenizer tokenizer;
 
     @Before
     public void setUp() throws IOException {
-        flatFileReader = new FlatFileReaderImpl();
+        FlatFileReaderImpl flatFileReader = new FlatFileReaderImpl();
         InputStream cpfileSpec = new ClassPathResource("future-filespec.csv").getInputStream();
         tokenizer = flatFileReader.getTokenizer(cpfileSpec);
     }

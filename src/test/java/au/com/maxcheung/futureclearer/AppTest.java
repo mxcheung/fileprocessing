@@ -38,12 +38,6 @@ public class AppTest {
     @Mock
     private ConfigurableApplicationContext context;
 
-    /**
-     * {@link Spy} {@link SpringApplicationBuilder}.
-     */
-    @Spy
-    private SpringApplicationBuilder builder = new SpringApplicationBuilder(App.class);
-
     @Test
     public void shouldAcceptParameter() throws Exception {
         String[] args = {"Pepperoni", "Black Olives"};

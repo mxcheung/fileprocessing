@@ -12,12 +12,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.slf4j.Logger;
-import org.slf4j.event.LoggingEvent;
 
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
@@ -28,9 +25,6 @@ public class FutureWriterImplTest {
 
     @Mock
     private Logger logger;
-
-    @Captor
-    private ArgumentCaptor<LoggingEvent> captorLoggingEvent;
 
     private FutureWriterImpl futureWriter;
 
