@@ -18,6 +18,7 @@ import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
 public class FutureTransactionSummaryTransformerTest {
 
+    protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
 
     private static final String EXPIRATION_DATE = "20100910";
 
@@ -35,10 +36,11 @@ public class FutureTransactionSummaryTransformerTest {
 
     private static final String CLIENT_TYPE = "CL";
 
-    private static final String TRANSACTION_ROW1 = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
-    private static final String TRANSACTION_ROW2 = "315CL  123400020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
+    private static final String TRANSACTION_ROW1 = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 "
+            + "0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
+    private static final String TRANSACTION_ROW2 = "315CL  123400020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0"
+            + "000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
 
-    protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\filespec\\";
 
     private FlatFileReaderImpl flatFileReader;
     private DefaultLineMapper<FutureTransaction> lineMapper;
@@ -84,6 +86,5 @@ public class FutureTransactionSummaryTransformerTest {
         List<FutureTransactionSummary> result = futureTransactionSummaryTransformer.transform(txns);
         assertEquals(2, result.size());
     }
-    
 
 }

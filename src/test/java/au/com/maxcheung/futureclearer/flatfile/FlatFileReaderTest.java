@@ -20,8 +20,8 @@ import au.com.maxcheung.futureclearer.model.FutureTransaction;
 public class FlatFileReaderTest {
 
     protected static final String FILESPEC_FILEPATH = "src/test/resources/filespec/";
-    private static final String FUTURE_FILESPEC_CSV = "future-filespec.csv";
     private static final String DATAFILE_TXT = "datafile.txt";
+    private static final int TXN_SIZE = 717;
 
     private FlatFileReader reader;
 
@@ -34,10 +34,9 @@ public class FlatFileReaderTest {
 
     @Test
     public void shouldReadFixedLengthFile() throws Exception {
-        String specFile = FILESPEC_FILEPATH + FUTURE_FILESPEC_CSV;
         String dataFile = FILESPEC_FILEPATH + DATAFILE_TXT;
         List<FutureTransaction> transactions = reader.read(dataFile);
-        assertEquals(717, transactions.size());
+        assertEquals(TXN_SIZE, transactions.size());
     }
 
 }

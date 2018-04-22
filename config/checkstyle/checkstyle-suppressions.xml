@@ -9,7 +9,10 @@
 
     <!-- JUnit Rules require the rules field to have public visibility. -->
     <!-- See http://checkstyle.sourceforge.net/config_design.html#VisibilityModifier -->
+    
+<!-- 
     <suppress files=".*(?:Test|TestBase)\.java$" checks="VisibilityModifier" />
+ -->    
     
     <!-- Generated files -->
     <suppress files=".*/src/main/java/generated/.*\.java" checks=".*" />
@@ -19,6 +22,9 @@
     
     
     <!-- Test suppression -->
+    
+<!-- 
+
     <suppress files=".*/src/test/java/.*\.java" checks="VisibilityModifier" />
     <suppress files=".*/src/test/java/.*\.java" checks="ClassFanOutComplexity" />
     <suppress files=".*/src/test/java/.*\.java" checks="MagicNumber" />
@@ -32,6 +38,7 @@
     <suppress files=".*\\src\\test\\java\\.*\.java" checks="ClassDataAbstractionCoupling" />
     <suppress files=".*\\src\\test\\java\\.*\.java" checks="NPathComplexity" />
     <suppress files=".*\\src\\test\\java\\.*\.java" checks="Javadoc.*" />
+ -->    
     
     <suppress files=".*/src/integration-test/java/.*\.java" checks="VisibilityModifier" />
     <suppress files=".*/src/integration-test/java/.*\.java" checks="ClassFanOutComplexity" />

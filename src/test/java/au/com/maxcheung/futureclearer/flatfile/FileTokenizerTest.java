@@ -18,9 +18,12 @@ import au.com.maxcheung.futureclearer.model.FutureTransaction;
 
 public class FileTokenizerTest {
 
+    private static final int FIELD_COUNT = 34;
+
     private static final String TRANSACTION_DATE = "transactionDate";
 
-    private static final String LINE = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
+    private static final String LINE = "315CL  432100020001SGXDC FUSGX NK    20100910JPY01B 0000000001 "
+            + "0000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
 
     private FlatFileReaderImpl flatFileReader;
     private FixedLengthTokenizer tokenizer;
@@ -35,7 +38,7 @@ public class FileTokenizerTest {
     @Test
     public void shouldTokenize() throws IOException {
         FieldSet fields = tokenizer.tokenize(LINE);
-        assertEquals(34, fields.getFieldCount());
+        assertEquals(FIELD_COUNT, fields.getFieldCount());
         Properties props = fields.getProperties();
         assertEquals("20100820", props.getProperty(TRANSACTION_DATE));
     }

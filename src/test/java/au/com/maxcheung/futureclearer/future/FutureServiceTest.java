@@ -35,16 +35,16 @@ public class FutureServiceTest extends FutureServiceTst {
     private FutureService futureService;
 
     @Mock
-    FlatFileReader flatFileReader;
+    private FlatFileReader flatFileReader;
 
     @Mock
-    FutureValidator futureValidator;
+    private FutureValidator futureValidator;
 
     @Mock
-    FutureTransformer futureTransformer;
+    private FutureTransformer futureTransformer;
 
     @Mock
-    FutureWriter futureWriter;
+    private FutureWriter futureWriter;
 
     @Before
     public void setup() {

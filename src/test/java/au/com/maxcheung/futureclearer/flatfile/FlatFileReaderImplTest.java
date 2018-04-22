@@ -26,7 +26,9 @@ import au.com.maxcheung.futureclearer.validate.FutureValidatorImpl;
 public class FlatFileReaderImplTest {
 
     protected static final String FILESPEC_FILEPATH = "src/test/resources/filespec/";
-    private static final String FUTURE_FILESPEC_CSV = "future-filespec.csv";
+
+    private static final int TXNS_SIZE = 717;
+    private static final int SUMMARY_COUNT = 5;
     private static final String DATAFILE_TXT = "datafile.txt";
 
     private FlatFileReaderImpl reader;
@@ -36,7 +38,7 @@ public class FlatFileReaderImplTest {
 
     @Before
     public void setup() throws IOException {
-//        reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
+        // reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         reader = new FlatFileReaderImpl();
         writer = new CsvWriter(FutureTransactionSummary.class);
         futureTransactionSummaryTransformer = new FutureTransformerImpl();
@@ -45,13 +47,12 @@ public class FlatFileReaderImplTest {
 
     @Test
     public void shouldReadFixedLengthFile() throws Exception {
-        String specFile = FILESPEC_FILEPATH + FUTURE_FILESPEC_CSV;
         String dataFile = FILESPEC_FILEPATH + DATAFILE_TXT;
         List<FutureTransaction> transactions = reader.read(dataFile);
-        assertEquals(717, transactions.size());
+        assertEquals(TXNS_SIZE, transactions.size());
         futureValidator.validate(transactions);
         List<FutureTransactionSummary> summary = futureTransactionSummaryTransformer.transform(transactions);
-        assertEquals(5, summary.size());
+        assertEquals(SUMMARY_COUNT, summary.size());
         String rfiMasterFilePath = FILESPEC_FILEPATH + "out.csv";
         writer.write(summary, rfiMasterFilePath);
     }

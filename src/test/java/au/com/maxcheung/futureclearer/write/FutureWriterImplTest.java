@@ -20,7 +20,6 @@ import org.slf4j.Logger;
 import org.slf4j.event.LoggingEvent;
 
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
-import au.com.maxcheung.futureclearer.write.FutureWriterImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class FutureWriterImplTest {

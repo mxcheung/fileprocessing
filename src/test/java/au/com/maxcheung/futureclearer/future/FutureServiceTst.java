@@ -8,5 +8,4 @@ public abstract class FutureServiceTst {
 
     protected static final String DATAFILE_NAME = "datafileName";
 
-
 }

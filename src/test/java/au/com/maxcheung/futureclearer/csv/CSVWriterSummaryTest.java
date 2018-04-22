@@ -12,10 +12,11 @@ import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
 public class CSVWriterSummaryTest {
 
-    private static final String CLIENT_INFO = "clientInfo";
-    
-    private CsvWriter genericCSVWriter;
     protected static final String FILESPEC_FILEPATH = "src\\test\\resources\\";
+
+    private static final String CLIENT_INFO = "clientInfo";
+
+    private CsvWriter genericCSVWriter;
 
     @Before
     public void setup() {

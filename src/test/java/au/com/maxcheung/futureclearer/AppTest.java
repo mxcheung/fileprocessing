@@ -43,26 +43,19 @@ public class AppTest {
     @Spy
     private SpringApplicationBuilder builder = new SpringApplicationBuilder(App.class);
 
-    /**
-     * Ensures the source of the configured application is the {@link App}.
-     * 
-     * @throws Exception
-     */
     @Test
     public void shouldAcceptParameter() throws Exception {
-        String[] args = { "Pepperoni", "Black Olives" };
+        String[] args = {"Pepperoni", "Black Olives"};
         app.run(args);
-
         verify(lookupService, times(1)).lookupLoad("Pepperoni", "Black Olives");
         verifyNoMoreInteractions(lookupService);
     }
 
     @Test
     public void shouldSkipLoadWhenIncorrectParamter() throws Exception {
-        String[] args = { "Pepperoni" };
+        String[] args = {"Pepperoni"};
         app.run(args);
         verify(lookupService, times(0)).lookupLoad(anyString(), anyString());
         verifyNoMoreInteractions(lookupService);
     }
-
 }

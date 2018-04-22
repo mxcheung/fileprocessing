@@ -23,7 +23,6 @@ import org.slf4j.event.LoggingEvent;
 
 import au.com.maxcheung.futureclearer.model.FutureTransaction;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class FutureValidatorTest {
 
@@ -50,7 +49,8 @@ public class FutureValidatorTest {
         transactions.add(transaction);
         futureValidator.validate(transactions);
         verify(logger, times(1)).error("line: 1 : recordCode : 316 : must match \"[3][1][5]\"");
-        verify(logger, times(1)).error("line: 1 : clientNumber : 12345 : numeric value out of bounds (<4 digits>.<0 digits> expected)");
+        verify(logger, times(1))
+                .error("line: 1 : clientNumber : 12345 : numeric value out of bounds (<4 digits>.<0 digits> expected)");
         verify(logger, times(1)).info(anyString(), anyInt());
         verifyNoMoreInteractions(logger);
     }
