@@ -1,6 +1,7 @@
 package au.com.maxcheung.futureclearer;
 
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -32,7 +33,7 @@ public class AppTest {
     private App app;
 
     @Mock
-    private FutureService lookupService;
+    private FutureService futureService;
 
     @Mock
     private ConfigurableApplicationContext context;
@@ -47,15 +48,27 @@ public class AppTest {
     public void shouldAcceptParameter() throws Exception {
         String[] args = {"Pepperoni", "Black Olives"};
         app.run(args);
-        verify(lookupService, times(1)).lookupLoad("Pepperoni", "Black Olives");
-        verifyNoMoreInteractions(lookupService);
+        verify(futureService, times(1)).lookupLoad("Pepperoni", "Black Olives");
+        verifyNoMoreInteractions(futureService);
+        verify(context, atLeastOnce()).close();
     }
 
     @Test
-    public void shouldSkipLoadWhenIncorrectParamter() throws Exception {
+    public void shouldSkipLoadWhenIncorrectParameter() throws Exception {
         String[] args = {"Pepperoni"};
         app.run(args);
-        verify(lookupService, times(0)).lookupLoad(anyString(), anyString());
-        verifyNoMoreInteractions(lookupService);
+        verify(futureService, times(0)).lookupLoad(anyString(), anyString());
+        verifyNoMoreInteractions(futureService);
+        verify(context, atLeastOnce()).close();
     }
+    
+    @Test
+    public void shouldNoInteractionsWithInvalidArguments() throws Exception {
+        String[] args = {"Pepperoni"};
+        App.main(args);
+        verify(futureService, times(0)).lookupLoad(anyString(), anyString());
+        verifyNoMoreInteractions(futureService);
+        verifyNoMoreInteractions(context);
+    }
+
 }
