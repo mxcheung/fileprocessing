@@ -9,3 +9,4 @@ public interface FutureWriter {
     <T> void write(List<T> rows, String filename) throws FileNotFoundException, IOException;
 
 }
+

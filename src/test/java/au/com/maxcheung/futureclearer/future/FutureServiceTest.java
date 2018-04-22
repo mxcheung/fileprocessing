@@ -70,6 +70,6 @@ public class FutureServiceTest extends FutureServiceTst {
         doThrow(new FileNotFoundException()).when(flatFileReader).read(DATAFILE_NAME);
         futureService.lookupLoad(DATAFILE_NAME, REPORTFILE_NAME);
     }
-
 }
+
 
