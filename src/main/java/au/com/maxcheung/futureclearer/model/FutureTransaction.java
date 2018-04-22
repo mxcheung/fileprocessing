@@ -22,18 +22,14 @@ public class FutureTransaction {
 
     private String clientType;
 
-
     @Digits(integer = 4, fraction = 0)
     private String clientNumber;
-
 
     @Digits(integer = 4, fraction = 0)
     private String accountNumber;
 
-
     @Digits(integer = 4, fraction = 0)
     private String subAccountNumber;
-
 
     private String oppositePartyCode;
 
@@ -43,37 +39,28 @@ public class FutureTransaction {
 
     private String symbol;
 
-
     @Pattern(regexp = "[0-9]{8}")
     private String expirationDate;
-
 
     private String currencyCode;
 
     private String movementCode;
 
-
     @Size(min = 1, max = 1)
     private String buySellCode;
 
-
     private String quantityLongSign;
-
 
     @Digits(integer = 10, fraction = 0)
     private Long quantityLong;
 
-
     private String quantityShortSign;
-
 
     @Digits(integer = 10, fraction = 0)
     private Long quantityShort;
 
-
     @Digits(integer = 12, fraction = 2)
     private String exchangeBrokerFee;
-
 
     private String exchangeBrokerFeeDC;
 
@@ -91,21 +78,16 @@ public class FutureTransaction {
 
     private String commissionCurCode;
 
-
     @Pattern(regexp = "[0-9]{8}")
     private String transactionDate;
-
 
     @Digits(integer = 6, fraction = 0)
     private String futureReference;
 
-
     private String ticketNumber;
-
 
     @Digits(integer = 6, fraction = 0)
     private String externalNumber;
-
 
     @Digits(integer = 15, fraction = 7)
     private String transactionPrice;

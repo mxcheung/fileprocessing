@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import au.com.maxcheung.futureclearer.csv.CsvWriter;
 import au.com.maxcheung.futureclearer.model.FutureTransactionSummary;
 
-
 @Service
 public class FutureWriterImpl implements FutureWriter {
 
@@ -25,18 +24,21 @@ public class FutureWriterImpl implements FutureWriter {
         writer = new CsvWriter(FutureTransactionSummary.class);
     }
 
-    /* (non-Javadoc)
-     * @see au.com.maxcheung.futureclearer.future.writer.FutureWriter#write(java.util.List, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * au.com.maxcheung.futureclearer.future.writer.FutureWriter#write(java.util.
+     * List, java.lang.String)
      */
     @Override
     public <T> void write(List<T> rows, String filename) throws FileNotFoundException, IOException {
         writer.write(rows, filename);
         logger().info("Written rows : {} to file : {}.", rows.size(), filename);
     }
-    
+
     Logger logger() {
         return LOGGER;
     }
-
 
 }

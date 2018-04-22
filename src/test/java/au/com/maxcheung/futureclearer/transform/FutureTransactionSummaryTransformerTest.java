@@ -41,7 +41,6 @@ public class FutureTransactionSummaryTransformerTest {
     private static final String TRANSACTION_ROW2 = "315CL  123400020001SGXDC FUSGX NK    20100910JPY01B 0000000001 0"
             + "000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
 
-
     private DefaultLineMapper<FutureTransaction> lineMapper;
     private FutureTransaction futureTransactionDTO;
     private FutureTransformer futureTransactionSummaryTransformer;

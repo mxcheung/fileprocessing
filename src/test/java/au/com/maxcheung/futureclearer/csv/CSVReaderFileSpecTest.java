@@ -21,7 +21,6 @@ public class CSVReaderFileSpecTest {
 
     private static final int THREE = 3;
 
-
     private CsvReader fileSpecCSVReader;
 
     @Before

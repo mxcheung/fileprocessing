@@ -13,7 +13,5 @@ public abstract class CSVWriterTst {
     public CsvWriter getGenericCSVWriter() {
         return genericCSVWriter;
     }
-    
-    
 
 }

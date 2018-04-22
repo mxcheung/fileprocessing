@@ -31,9 +31,7 @@ public class CsvWriter extends BaseWriter {
     }
 
     private CsvSchema getSchema(final Class<?> type) {
-        CsvSchema csvSchema = mapper
-        .schemaFor(type)
-        .withHeader();
+        CsvSchema csvSchema = mapper.schemaFor(type).withHeader();
         csvSchema = csvSchema.withColumnSeparator(',');
         return csvSchema;
     }
@@ -44,7 +42,7 @@ public class CsvWriter extends BaseWriter {
 
     public <T> void write(List<T> rows, Writer writer) throws FileNotFoundException, IOException {
         ObjectWriter myObjectWriter = mapper.writer(schema);
-        LOGGER.info("Writing rows : {}",  rows.size());
+        LOGGER.info("Writing rows : {}", rows.size());
 
         myObjectWriter.writeValue(writer, rows);
 

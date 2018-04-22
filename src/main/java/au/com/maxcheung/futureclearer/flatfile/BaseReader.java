@@ -13,7 +13,6 @@ import au.com.maxcheung.futureclearer.model.FutureTransaction;
 
 public abstract class BaseReader {
 
-
     protected ItemReader<FutureTransaction> getReader(LineMapper<FutureTransaction> futureLineMapper) {
         FlatFileItemReader<FutureTransaction> flatFileItemReader = new FlatFileItemReader<>();
         flatFileItemReader.setLineMapper(futureLineMapper);
@@ -43,6 +42,5 @@ public abstract class BaseReader {
     protected File getFile(String fileName) {
         return new File(fileName);
     }
-
 
 }

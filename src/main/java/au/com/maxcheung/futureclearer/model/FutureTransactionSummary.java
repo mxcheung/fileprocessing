@@ -54,5 +54,4 @@ public class FutureTransactionSummary {
         this.totalTransactionAmount = totalTransactionAmount;
     }
 
-
 }

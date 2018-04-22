@@ -18,10 +18,10 @@ import org.springframework.context.ConfigurableApplicationContext;
 import au.com.maxcheung.futureclearer.future.FutureService;
 
 @SpringBootApplication
-@EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class, 
-        DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
+@EnableAutoConfiguration(exclude = { DataSourceAutoConfiguration.class,
+        DataSourceTransactionManagerAutoConfiguration.class, HibernateJpaAutoConfiguration.class })
 public class App implements CommandLineRunner {
-    
+
     private static final int ARGUMENT_LENGTH = 2;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(App.class);
@@ -41,7 +41,7 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        
+
         LOGGER.info("Writing logs to temp folder : {}", System.getProperty("java.io.tmpdir") + "logs");
         LOGGER.info("Arguments passed : {}", Arrays.toString(args));
         if (args.length != ARGUMENT_LENGTH) {
