@@ -57,7 +57,7 @@ public class FutureServiceTest extends FutureServiceTst {
         FutureTransaction transaction = new FutureTransaction();
         data.add(transaction);
         when(flatFileReader.read(DATAFILE_NAME)).thenReturn(data);
-        List<FutureTransactionSummary> lookupRows = futureService.lookupLoad(DATAFILE_NAME, REPORTFILE_NAME);
+        List<FutureTransactionSummary> lookupRows = futureService.futureFileLoad(DATAFILE_NAME, REPORTFILE_NAME);
         assertEquals(0, lookupRows.size());
         verify(futureValidator, times(1)).validate(any());
         verifyNoMoreInteractions(futureValidator);
@@ -68,7 +68,7 @@ public class FutureServiceTest extends FutureServiceTst {
     @Test(expected = FileLoadException.class)
     public void shouldThrowFileLoadException() throws UnexpectedInputException, ParseException, Exception {
         doThrow(new FileNotFoundException()).when(flatFileReader).read(DATAFILE_NAME);
-        futureService.lookupLoad(DATAFILE_NAME, REPORTFILE_NAME);
+        futureService.futureFileLoad(DATAFILE_NAME, REPORTFILE_NAME);
     }
 }
 

@@ -51,7 +51,7 @@ public class App implements CommandLineRunner {
         } else {
             String dataFile = args[0];
             String reportFile = args[1];
-            futureService.lookupLoad(dataFile, reportFile);
+            futureService.futureFileLoad(dataFile, reportFile);
         }
         SpringApplication.exit(context);
     }

@@ -47,6 +47,9 @@ public class FlatFileReaderImpl extends BaseReader implements FlatFileReader {
         reader = (FlatFileItemReader<FutureTransaction>) getReader(lineMapper);
     }
 
+    /* (non-Javadoc)
+     * @see au.com.maxcheung.fileingestor.flatfilereader.FlatFileReader#read(java.lang.String)
+     */
     @Override
     public List<FutureTransaction> read(String filename) throws UnexpectedInputException, ParseException, Exception {
         getLineMapper();
@@ -57,6 +60,9 @@ public class FlatFileReaderImpl extends BaseReader implements FlatFileReader {
         return rows;
     }
 
+    /* (non-Javadoc)
+     * @see au.com.maxcheung.fileingestor.flatfilereader.FlatFileReader#getLineMapper()
+     */
     @Override
     public DefaultLineMapper<FutureTransaction> getLineMapper() throws IOException {
         InputStream fileSpecIS = new ClassPathResource(FUTURE_FILESPEC_CSV).getInputStream();
@@ -66,6 +72,9 @@ public class FlatFileReaderImpl extends BaseReader implements FlatFileReader {
         return mapper;
     }
 
+    /* (non-Javadoc)
+     * @see au.com.maxcheung.fileingestor.flatfilereader.FlatFileReader#getTokenizer(java.io.InputStream)
+     */
     @Override
     public FixedLengthTokenizer getTokenizer(InputStream filePath) throws FileNotFoundException, IOException {
         List<FlatFileSpec> rows = csvReader.readCsv(filePath);

@@ -14,6 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author MAX
+ *
+ */
 @Service
 public class FutureValidatorImpl implements FutureValidator {
 
@@ -26,6 +30,10 @@ public class FutureValidatorImpl implements FutureValidator {
         validator = factory.getValidator();
     }
 
+    
+    /* (non-Javadoc)
+     * @see au.com.maxcheung.fileingestor.validator.FutureValidator#validate(java.util.List)
+     */
     @Override
     public <T> void validate(List<T> rows) {
         int lineNo = 1;

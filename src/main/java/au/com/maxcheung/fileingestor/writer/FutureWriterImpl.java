@@ -26,12 +26,9 @@ public class FutureWriterImpl implements FutureWriter {
         writer = new CsvWriter(FutureTransactionSummary.class);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * au.com.maxcheung.futureclearer.future.writer.FutureWriter#write(java.util.
-     * List, java.lang.String)
+
+    /* (non-Javadoc)
+     * @see au.com.maxcheung.fileingestor.writer.FutureWriter#write(java.util.List, java.lang.String)
      */
     @Override
     public <T> void write(List<T> rows, String filename) throws FileNotFoundException, IOException {

@@ -38,7 +38,13 @@ public class FutureService {
 
     }
 
-    public List<FutureTransactionSummary> lookupLoad(String dataFile, String reportFile) throws FileLoadException {
+    /**
+     * @param dataFile - fixed length input file to load. 
+     * @param reportFile - report file to output.
+     * @return list of summary records.
+     * @throws FileLoadException if specified file can not be processed.
+     */
+    public List<FutureTransactionSummary> futureFileLoad(String dataFile, String reportFile) throws FileLoadException {
         LOGGER.info(futureLogMsg("Data File Name : {}"), dataFile);
         LOGGER.info(futureLogMsg("Report File Name : {}"), reportFile);
         List<FutureTransactionSummary> result = new ArrayList<FutureTransactionSummary>();

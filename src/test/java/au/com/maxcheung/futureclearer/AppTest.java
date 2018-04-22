@@ -41,7 +41,7 @@ public class AppTest {
     public void shouldAcceptParameter() throws Exception {
         String[] args = {"Pepperoni", "Black Olives"};
         app.run(args);
-        verify(futureService, times(1)).lookupLoad("Pepperoni", "Black Olives");
+        verify(futureService, times(1)).futureFileLoad("Pepperoni", "Black Olives");
         verifyNoMoreInteractions(futureService);
         verify(context, atLeastOnce()).close();
     }
@@ -50,7 +50,7 @@ public class AppTest {
     public void shouldSkipLoadWhenIncorrectParameter() throws Exception {
         String[] args = {"Pepperoni"};
         app.run(args);
-        verify(futureService, times(0)).lookupLoad(anyString(), anyString());
+        verify(futureService, times(0)).futureFileLoad(anyString(), anyString());
         verifyNoMoreInteractions(futureService);
         verify(context, atLeastOnce()).close();
     }
@@ -59,7 +59,7 @@ public class AppTest {
     public void shouldNoInteractionsWithInvalidArguments() throws Exception {
         String[] args = {"Pepperoni"};
         App.main(args);
-        verify(futureService, times(0)).lookupLoad(anyString(), anyString());
+        verify(futureService, times(0)).futureFileLoad(anyString(), anyString());
         verifyNoMoreInteractions(futureService);
         verifyNoMoreInteractions(context);
     }

@@ -23,12 +23,9 @@ public class FutureTransformerImpl implements FutureTransformer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FutureTransformerImpl.class);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * au.com.maxcheung.futureclearer.transform.FutureTransformer#transform(java.
-     * util.List)
+
+    /* (non-Javadoc)
+     * @see au.com.maxcheung.fileingestor.transformer.FutureTransformer#transform(java.util.List)
      */
     @Override
     public List<FutureTransactionSummary> transform(List<FutureTransaction> futureTransactions) {
