@@ -47,7 +47,7 @@ public class FutureServiceTest extends FutureServiceTst {
     private FutureWriter futureWriter;
 
     @Before
-    public void setup() {
+    public void setUp() {
         futureService = new FutureService(flatFileReader, futureValidator, futureTransformer, futureWriter);
     }
 

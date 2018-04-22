@@ -19,7 +19,7 @@ public class CSVWriterSummaryTest {
     private CsvWriter genericCSVWriter;
 
     @Before
-    public void setup() {
+    public void setUp() {
         genericCSVWriter = new CsvWriter(FutureTransactionSummary.class);
     }
 

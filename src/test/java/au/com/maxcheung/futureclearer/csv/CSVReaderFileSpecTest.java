@@ -25,7 +25,7 @@ public class CSVReaderFileSpecTest {
     private CsvReader fileSpecCSVReader;
 
     @Before
-    public void setup() {
+    public void setUp() {
         fileSpecCSVReader = new CsvReader(FlatFileSpec.class);
     }
 

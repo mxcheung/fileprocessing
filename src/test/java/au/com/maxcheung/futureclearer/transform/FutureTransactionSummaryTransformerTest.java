@@ -42,16 +42,15 @@ public class FutureTransactionSummaryTransformerTest {
             + "000000000000000000060DUSD000000000030DUSD000000000000DJPY201008200012380     688032000092500000000             O";
 
 
-    private FlatFileReaderImpl flatFileReader;
     private DefaultLineMapper<FutureTransaction> lineMapper;
     private FutureTransaction futureTransactionDTO;
     private FutureTransformer futureTransactionSummaryTransformer;
 
     @Before
-    public void setup() throws Exception {
+    public void setUp() throws Exception {
         futureTransactionSummaryTransformer = new FutureTransformerImpl();
         // flatFileReader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
-        flatFileReader = new FlatFileReaderImpl();
+        FlatFileReaderImpl flatFileReader = new FlatFileReaderImpl();
         lineMapper = flatFileReader.getLineMapper();
         futureTransactionDTO = lineMapper.mapLine(TRANSACTION_ROW1, 0);
     }

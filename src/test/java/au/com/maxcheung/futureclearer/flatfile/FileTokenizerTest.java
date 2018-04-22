@@ -29,7 +29,7 @@ public class FileTokenizerTest {
     private FixedLengthTokenizer tokenizer;
 
     @Before
-    public void setup() throws IOException {
+    public void setUp() throws IOException {
         flatFileReader = new FlatFileReaderImpl();
         InputStream cpfileSpec = new ClassPathResource("future-filespec.csv").getInputStream();
         tokenizer = flatFileReader.getTokenizer(cpfileSpec);

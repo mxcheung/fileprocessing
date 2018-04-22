@@ -37,7 +37,7 @@ public class FlatFileReaderImplTest {
     private FutureValidator futureValidator;
 
     @Before
-    public void setup() throws IOException {
+    public void setUp() throws IOException {
         // reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         reader = new FlatFileReaderImpl();
         writer = new CsvWriter(FutureTransactionSummary.class);
