@@ -47,8 +47,8 @@ public class App implements CommandLineRunner {
         if (args.length != ARGUMENT_LENGTH) {
             LOGGER.error("Usage: datafile outputfile");
         } else {
-            String dataFile = args[0].toString();
-            String reportFile = args[1].toString();
+            String dataFile = args[0];
+            String reportFile = args[1];
             lookupService.lookupLoad(dataFile, reportFile);
         }
         SpringApplication.exit(context);

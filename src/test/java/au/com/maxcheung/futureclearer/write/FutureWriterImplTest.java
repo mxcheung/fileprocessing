@@ -35,7 +35,7 @@ public class FutureWriterImplTest {
     private FutureWriterImpl futureWriter;
 
     @Before
-    public void setup() {
+    public void setUp() {
         futureWriter = spy(new FutureWriterImpl());
         when(futureWriter.logger()).thenReturn(logger);
     }

@@ -18,9 +18,6 @@ public class FutureTransformerImpl implements FutureTransformer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FutureTransformerImpl.class);
 
-    public FutureTransformerImpl() {
-    }
-
     /*
      * (non-Javadoc)
      * 
