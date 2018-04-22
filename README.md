@@ -12,11 +12,17 @@ This module intentions is to:
 ### How to run the program ###
 java -jar fileingestor.jar datafile.txt out.csv
 
+### Continous Integration and Code Coverage 
+- [Continous Integration](https://travis-ci.org/mxcheung/fileprocessing?branch=master)
+- [Code Coverage](https://codecov.io/gh/mxcheung/fileprocessing)
+- [Codacy](https://www.codacy.com/app/mxcheung/fileprocessing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mxcheung/fileprocessing&amp;utm_campaign=Badge_Grade)
+
+
 ### Relevant Articles: 
 - [Introduction to Spring Batch](http://www.baeldung.com/introduction-to-spring-batch)
 - [FixedLengthTokenizer](https://docs.spring.io/spring-batch/trunk/apidocs/org/springframework/batch/item/file/transform/FixedLengthTokenizer.html)
-- [Jackson CSV extension] http://www.baeldung.com/spring-app-setup-with-csv-files
-- [Java Bean Validation Basics] http://www.baeldung.com/javax-validation
+- [Jackson CSV extension](http://www.baeldung.com/spring-app-setup-with-csv-files)
+- [Java Bean Validation Basics](http://www.baeldung.com/javax-validation)
 
 ### What is this repository for? ###
 
