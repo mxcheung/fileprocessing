@@ -12,7 +12,7 @@
 		and packages -->
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>au.com.maxcheung</groupId>
-	<artifactId>future-clearing</artifactId>
+	<artifactId>fileingestor</artifactId>
 	<version>${revision}${changelist}</version>
 	<name>future-clearing</name>
 	<description>Future Clearing</description>
@@ -64,6 +64,7 @@
 		<swagger2.version>2.7.0</swagger2.version>
 		<jackson-dataformat-csv.version>2.9.4</jackson-dataformat-csv.version>
 		<dozer.version>5.5.1</dozer.version>
+		<janino.version>3.0.8</janino.version>
 
 
 	</properties>
@@ -327,16 +328,23 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+ 					<configuration>
+                        <finalName>fileingestor</finalName>
+                    </configuration>						
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
-
 	</build>
 
 	<!-- REPORTING -->
 	<reporting>
-
 		<outputDirectory>${basedir}/target/site</outputDirectory>
-
 		<plugins>
 
 			<!-- Checkstyle plugin -->
@@ -399,6 +407,11 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>org.codehaus.janino</groupId>
+			<artifactId>janino</artifactId>
+			<version>${janino.version}</version>
+		</dependency>
 
 
 		<!-- Runtime Dependencies -->

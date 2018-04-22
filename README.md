@@ -1,14 +1,22 @@
-Future Clearing Service
 ====================================
-This module intentions is to:  
-   - act as a future clearing service.
-   
-Future Clearing Service is to manage clearing movement. 
+## File Ingestor Service
  
 [![travis](https://travis-ci.org/mxcheung/fileprocessing.svg?branch=master)](https://travis-ci.org/mxcheung/fileprocessing?branch=master)
 [![codecov](https://codecov.io/gh/mxcheung/fileprocessing/branch/master/graph/badge.svg)](https://codecov.io/gh/mxcheung/fileprocessing)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6949db121aa4485ae233638d880f080)](https://www.codacy.com/app/mxcheung/fileprocessing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mxcheung/fileprocessing&amp;utm_campaign=Badge_Grade)
 
+This module intentions is to:  
+   - read fixed length transaction files.
+   - product a daily summary report.
+
+### How to run the program ###
+java -jar fileingestor.jar datafile.txt out.csv
+
+### Relevant Articles: 
+- [Introduction to Spring Batch](http://www.baeldung.com/introduction-to-spring-batch)
+- [FixedLengthTokenizer](https://docs.spring.io/spring-batch/trunk/apidocs/org/springframework/batch/item/file/transform/FixedLengthTokenizer.html)
+- [Jackson CSV extension] http://www.baeldung.com/spring-app-setup-with-csv-files
+- [Java Bean Validation Basics] http://www.baeldung.com/javax-validation
 
 ### What is this repository for? ###
 

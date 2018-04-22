@@ -13,7 +13,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import au.com.maxcheung.futureclearer.future.FutureService;
+import au.com.maxcheung.fileingestor.App;
+import au.com.maxcheung.fileingestor.future.service.FutureService;
 
 /**
  * Unit tests for {@link App}.
@@ -62,5 +63,6 @@ public class AppTest {
         verifyNoMoreInteractions(futureService);
         verifyNoMoreInteractions(context);
     }
+
 
 }
