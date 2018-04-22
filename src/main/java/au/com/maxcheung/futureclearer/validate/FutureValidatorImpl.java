@@ -17,11 +17,10 @@ public class FutureValidatorImpl implements FutureValidator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FutureValidator.class);
 
-    private ValidatorFactory factory;
     private Validator validator;
 
     public FutureValidatorImpl() {
-        factory = Validation.buildDefaultValidatorFactory();
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
         validator = factory.getValidator();
     }
 
@@ -44,7 +43,7 @@ public class FutureValidatorImpl implements FutureValidator {
         return violations;
     }
 
-    Logger logger() {
+   protected Logger logger() {
         return LOGGER;
     }
 

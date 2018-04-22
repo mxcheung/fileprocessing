@@ -37,7 +37,7 @@ public class FutureWriterImpl implements FutureWriter {
         logger().info("Written rows : {} to file : {}.", rows.size(), filename);
     }
 
-    Logger logger() {
+    protected Logger logger() {
         return LOGGER;
     }
 

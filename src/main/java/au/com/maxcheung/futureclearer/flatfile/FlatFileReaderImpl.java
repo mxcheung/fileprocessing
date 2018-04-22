@@ -37,12 +37,11 @@ public class FlatFileReaderImpl extends BaseReader implements FlatFileReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(FlatFileReaderImpl.class);
 
     private final CsvReader csvReader;
-    private final DefaultLineMapper<FutureTransaction> lineMapper;
     private final FlatFileItemReader<FutureTransaction> reader;
 
     public FlatFileReaderImpl() throws IOException {
         csvReader = new CsvReader(FlatFileSpec.class);
-        lineMapper = getLineMapper();
+        DefaultLineMapper<FutureTransaction> lineMapper = getLineMapper();
         reader = (FlatFileItemReader<FutureTransaction>) getReader(lineMapper);
     }
 

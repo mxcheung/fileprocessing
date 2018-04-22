@@ -36,15 +36,16 @@ public class CsvWriter extends BaseWriter {
         return csvSchema;
     }
 
-    public <T> void write(List<T> rows, String filename) throws FileNotFoundException, IOException {
-        write(rows, getOutPutStreamWriter(filename));
+    public <T> List<T> write(List<T> rows, String filename) throws FileNotFoundException, IOException {
+        return write(rows, getOutPutStreamWriter(filename));
     }
 
-    public <T> void write(List<T> rows, Writer writer) throws FileNotFoundException, IOException {
+    public <T> List<T> write(List<T> rows, Writer writer) throws FileNotFoundException, IOException {
         ObjectWriter myObjectWriter = mapper.writer(schema);
         LOGGER.info("Writing rows : {}", rows.size());
 
         myObjectWriter.writeValue(writer, rows);
+        return rows;
 
     }
 

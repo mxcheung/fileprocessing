@@ -1,5 +1,7 @@
 package au.com.maxcheung.futureclearer.csv;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +32,9 @@ public class CSVWriterSummaryTest {
         FutureTransactionSummary summaryRow = new FutureTransactionSummary();
         summaryRow.setClientInfo(CLIENT_INFO);
         rows.add(summaryRow);
-        genericCSVWriter.write(rows, rfiMasterFilePath);
+        List<FutureTransactionSummary> result = genericCSVWriter.write(rows, rfiMasterFilePath);
+        assertEquals(rows.size(), result.size());
+
     }
 
 }
