@@ -10,3 +10,4 @@ public interface FutureTransformer {
     List<FutureTransactionSummary> transform(List<FutureTransaction> futureTransactions);
 
 }
+
