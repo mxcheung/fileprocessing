@@ -3,7 +3,9 @@
  
 [![travis](https://travis-ci.org/mxcheung/fileprocessing.svg?branch=master)](https://travis-ci.org/mxcheung/fileprocessing?branch=master)
 [![codecov](https://codecov.io/gh/mxcheung/fileprocessing/branch/master/graph/badge.svg)](https://codecov.io/gh/mxcheung/fileprocessing)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6949db121aa4485ae233638d880f080)](https://www.codacy.com/app/mxcheung/fileprocessing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mxcheung/fileprocessing&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6949db121aa4485ae233638d880f080)](https://www.codacy.com/app/mxcheung/fileprocessing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mxcheung/fileprocessing&amp;utm_campaign=Badge_G
+rade)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/a6949db121aa4485ae233638d880f080)](https://www.codacy.com/app/mxcheung/fileprocessing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mxcheung/fileprocessing&amp;utm_campaign=Badge_Coverage)
 
 This module intentions is to:  
    - read fixed length transaction files.
