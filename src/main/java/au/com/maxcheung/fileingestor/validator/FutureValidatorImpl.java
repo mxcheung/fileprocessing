@@ -30,20 +30,20 @@ public class FutureValidatorImpl implements FutureValidator {
         validator = factory.getValidator();
     }
 
-    
-    /* (non-Javadoc)
-     * @see au.com.maxcheung.fileingestor.validator.FutureValidator#validate(java.util.List)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * au.com.maxcheung.fileingestor.validator.FutureValidator#validate(java.util.
+     * List)
      */
     @Override
     public <T> void validate(List<T> rows) {
         int lineNo = 1;
         for (T row : rows) {
             Set<ConstraintViolation<T>> violations = validate(row);
-            for (ConstraintViolation<T> violation : violations) {
-                logger().error(futureLogMsg("line: " + lineNo + " : " + violation.getPropertyPath() + " : "
-                        + violation.getInvalidValue() + " : " + violation.getMessage()));
-            }
-
+            violations.forEach(v -> logger().error(futureLogMsg("line: " + lineNo + " : " + v.getPropertyPath() + " : "
+                    + v.getInvalidValue() + " : " + v.getMessage())));
         }
         logger().info(futureLogMsg("Validated rows : {}"), rows.size());
     }
@@ -53,7 +53,7 @@ public class FutureValidatorImpl implements FutureValidator {
         return violations;
     }
 
-   protected Logger logger() {
+    protected Logger logger() {
         return LOGGER;
     }
 
