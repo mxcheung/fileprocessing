@@ -16,9 +16,9 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 /**
- * CSVReader to load Questionnaire Definition File.
+ * CSVReader to load csv files.
  * 
- * @author Max Cheung <max.cheung@lonsec.com.au>
+ * @author Max Cheung <max.cheung@optusnet.com.au>
  */
 
 public class CsvReader {
@@ -32,6 +32,21 @@ public class CsvReader {
         schema = getSchema(type);
     }
 
+    /**
+     * Convenience method which is functionally equivalent to:
+     *<pre>
+     *  reader(pojoType).withSchema(schemaFor(pojoType));
+     *</pre>
+     * that is, constructs a {@link ObjectReader} which both binds to
+     * specified type and uses "loose" {@link CsvSchema} introspected from
+     * specified type (one without strict inferred typing).
+     *<p>
+     * @param pojoType Type used both for data-binding (result type) and for
+     *   schema introspection. NOTE: must NOT be an array or Collection type, since
+     *   these only make sense for data-binding (like arrays of objects to bind),
+     *   but not for schema construction (no CSV types can be mapped to arrays
+     *   or Collections)
+     */
     private CsvSchema getSchema(final Class<?> pojoType) {
         CsvSchema csvSchema = mapper.schemaFor(pojoType);
         csvSchema = csvSchema.withColumnSeparator(',');
