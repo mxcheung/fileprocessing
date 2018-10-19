@@ -5,7 +5,9 @@ import static org.junit.Assert.assertEquals;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +24,8 @@ public class CSVWriterSummaryTest {
 
     @Before
     public void setUp() {
-        genericCSVWriter = new CsvWriter(FutureTransactionSummary.class);
+        Map<String, Object> options = new HashMap<>();
+        genericCSVWriter = new CsvWriter(FutureTransactionSummary.class,options);
     }
 
     @Test

@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalTime;
 import java.util.Properties;
 
 import org.junit.Before;
@@ -58,5 +61,16 @@ public class FileTokenizerTest {
         lineMapper.setLineTokenizer(tokenizer);
         return lineMapper;
     }
+    
+    
+    @Test
+    public void shouldDuration() throws Exception {
+        Instant t1, t2;
+        t1 = Instant.now();
+        t2 = Instant.now();
+        long ns = Duration.between(t1, t2).toNanos();
+        System.out.println(ns);
+    }
+
 
 }

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,18 +23,20 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 
 public class CsvWriter extends BaseWriter {
 
+    public static final String USE_HEADER = "USE_HEADER";
+
     private static final Logger LOGGER = LoggerFactory.getLogger(CsvWriter.class);
 
     private final CsvMapper mapper = new CsvMapper();
     private final CsvSchema schema;
 
-    public CsvWriter(final Class<?> type) {
-
-        schema = getSchema(type);
+    public CsvWriter(final Class<?> type, final Map<String, Object> options) {
+        schema = getSchema(type, options);
     }
 
-    private CsvSchema getSchema(final Class<?> type) {
+    private CsvSchema getSchema(final Class<?> type, final Map<String, Object> options) {
         CsvSchema csvSchema = mapper.schemaFor(type).withHeader();
+        csvSchema = csvSchema.withUseHeader((boolean) options.getOrDefault(USE_HEADER, true));
         csvSchema = csvSchema.withColumnSeparator(',');
         return csvSchema;
     }

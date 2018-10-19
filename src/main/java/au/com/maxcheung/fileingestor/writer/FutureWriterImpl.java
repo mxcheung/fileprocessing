@@ -4,7 +4,9 @@ import static au.com.maxcheung.fileingestor.utils.LogUtils.futureLogMsg;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +25,16 @@ public class FutureWriterImpl implements FutureWriter {
 
     @Autowired
     FutureWriterImpl() {
-        writer = new CsvWriter(FutureTransactionSummary.class);
+        Map<String, Object> options = new HashMap<>();
+        options.put(CsvWriter.USE_HEADER, true);
+        writer = new CsvWriter(FutureTransactionSummary.class, options);
     }
 
-
-    /* (non-Javadoc)
-     * @see au.com.maxcheung.fileingestor.writer.FutureWriter#write(java.util.List, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see au.com.maxcheung.fileingestor.writer.FutureWriter#write(java.util.List,
+     * java.lang.String)
      */
     @Override
     public <T> void write(List<T> rows, String filename) throws FileNotFoundException, IOException {

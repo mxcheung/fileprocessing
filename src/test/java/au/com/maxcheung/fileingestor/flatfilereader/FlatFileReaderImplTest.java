@@ -3,7 +3,9 @@ package au.com.maxcheung.fileingestor.flatfilereader;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +42,8 @@ public class FlatFileReaderImplTest {
     public void setUp() throws IOException {
         // reader = new FlatFileReader(new CsvReader(FlatFileSpec.class));
         reader = new FlatFileReaderImpl();
-        writer = new CsvWriter(FutureTransactionSummary.class);
+        Map<String, Object> options = new HashMap<>();
+        writer = new CsvWriter(FutureTransactionSummary.class, options );
         futureTransactionSummaryTransformer = new FutureTransformerImpl();
         futureValidator = new FutureValidatorImpl();
     }

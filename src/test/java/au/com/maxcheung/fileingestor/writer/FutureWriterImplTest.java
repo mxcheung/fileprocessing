@@ -41,7 +41,7 @@ public class FutureWriterImplTest {
 
         List<FutureTransactionSummary> transactions = new ArrayList<FutureTransactionSummary>();
         FutureTransactionSummary transaction = new FutureTransactionSummary();
-        transaction.setClientInfo("clientInfo");
+        transaction.setClientInfo("client123");
         transactions.add(transaction);
         futureWriter.write(transactions, rfiMasterFilePath);
         verify(logger, times(1)).info(futureLogMsg("Written rows : {} to file : {}."), 1, rfiMasterFilePath);
