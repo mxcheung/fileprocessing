@@ -6,6 +6,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/a6949db121aa4485ae233638d880f080)](https://www.codacy.com/app/mxcheung/fileprocessing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mxcheung/fileprocessing&amp;utm_campaign=Badge_Grade)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/a6949db121aa4485ae233638d880f080)](https://www.codacy.com/app/mxcheung/fileprocessing?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=mxcheung/fileprocessing&amp;utm_campaign=Badge_Coverage)
 
+
 This module intentions is to:  
    - read fixed length transaction files.
    - product a daily summary report.
